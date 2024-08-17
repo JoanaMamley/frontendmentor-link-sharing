@@ -1,1 +1,147 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+html, body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: lightgrey;
+    font-family: "Instrument Sans", sans-serif;
+}
+
+app-root {
+    width: 100%;
+    height: 100%;
+}
+
+
+// Auth pages
+
+.auth-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.auth-card {
+    width: 30%;
+    padding: 2rem;
+}
+
+.auth-form {
+    padding: 3rem 1rem;
+    background: white;
+}
+
+.auth-form-center {
+    margin: 0 auto;
+    width: 98%;
+}
+
+.auth-form-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.email {
+    background: url('../public/images/icon-email.svg') no-repeat scroll 10px 10px;
+    padding-left:30px;
+}
+
+.password {
+    background: url('../public/images/icon-password.svg') no-repeat scroll 10px 10px;
+    padding-left:30px;
+}
+
+::placeholder {
+    opacity: 0.5; 
+    padding-left: 10px;
+  }
+
+.dark-button {
+    background: #633CFF;
+    border: 2px solid #633CFF;
+    border-radius: 0.3rem;
+    padding: 0.2rem;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.dark-button:hover {
+    background: #BEADFF;
+    border: 2px solid #BEADFF;
+    box-shadow: 0 0 5pt 2pt  #EFEBFF;
+}
+
+.dark-text {
+    color: #633CFF;
+}
+
+p {
+    color: #737373;
+    font-weight: 400;
+}
+
+a {
+    text-decoration: none;
+}
+
+a, input {
+    cursor: pointer;
+}
+
+input:focus, input:hover {
+    border: 1px solid #633CFF ;
+    box-shadow: 0 0 5pt 2pt  #EFEBFF;
+    outline-width: 0px;
+}
+
+@media screen and (max-width: 1700px) {
+    .auth-card {
+        width: 40%;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .auth-card {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    html, body{
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: white;
+    }
+
+    .auth-background {
+        display: block;
+    }
+
+    .auth-card {
+        width: 100%;
+        margin: 0 auto 1rem;
+    }
+
+    .auth-form {
+        padding: 5rem 1rem 2rem;
+    }
+
+    .form-text {
+        font-size: 13px;
+    }
+
+    p {
+        font-size: 15px;
+    }
+
+}
