@@ -97,10 +97,29 @@ a, input {
     cursor: pointer;
 }
 
-input:focus, input:hover {
-    border: 1px solid #633CFF ;
-    box-shadow: 0 0 5pt 2pt  #EFEBFF;
+input:focus, input:hover, input:active {
+    border: 1px solid #633CFF !important;
+    box-shadow: 0 0 5pt 2pt  #EFEBFF !important;
     outline-width: 0px;
+}
+
+input.ng-invalid.ng-touched, .input-error {
+    border: 1px solid red;
+}
+
+.error-label {
+    color: red;
+}
+
+.error-message {
+    font-size: 12px;
+    color: red;
+}
+
+.disabled-button {
+    background: #BEADFF;
+    border: 2px solid #BEADFF;
+    cursor: not-allowed;
 }
 
 @media screen and (max-width: 1700px) {
@@ -115,7 +134,7 @@ input:focus, input:hover {
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
     html, body{
         height: 100%;
         margin: 0;
