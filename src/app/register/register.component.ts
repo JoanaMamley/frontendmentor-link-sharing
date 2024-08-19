@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -13,15 +12,14 @@ import { Subscription } from 'rxjs';
 })
 export class RegisterComponent implements OnInit{
   signUpForm?: FormGroup;
-  subscription?: Subscription;
 
   constructor(private router: Router){}
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
       'email': new FormControl<null | string>(null, [Validators.required, Validators.email]),
-      'password': new FormControl<null | string>(null, [Validators.required, Validators.min(8)]),
-      'confirmPassword': new FormControl<null | string>(null, [Validators.required, Validators.min(8)])
+      'password': new FormControl<null | string>(null, [Validators.required, Validators.minLength(8)]),
+      'confirmPassword': new FormControl<null | string>(null, [Validators.required, Validators.minLength(8)])
     }, this.passwordMatchValidator())
   }
 
@@ -40,6 +38,7 @@ export class RegisterComponent implements OnInit{
   }
 
   onSubmit() {
+    console.log(this.signUpForm);
    this.router.navigateByUrl('/login');
   }
 

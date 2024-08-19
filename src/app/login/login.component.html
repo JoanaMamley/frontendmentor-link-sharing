@@ -7,16 +7,20 @@
             <div class="auth-form-center">
                 <h3>Login</h3>
                 <p>Add your details below to get back into the app</p>
-                <form class="auth-form-items">
+                <form class="auth-form-items" [formGroup]="loginForm!" (ngSubmit)="onSubmit()">
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="e.g alex@gmail.com">
+                        <label for="exampleInputEmail1" [ngClass]="{'error-label': email?.invalid && (email?.touched || email?.dirty)}">Email address</label>
+                        <input type="email" class="form-control email" id="exampleInputEmail1" formControlName="email" aria-describedby="emailHelp" placeholder="e.g alex@gmail.com">
+                        <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('required')" class="error-message">Can't be empty</span>
+                        <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('email')" class="error-message">Not a valid email</span>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" class="form-control password" id="exampleInputPassword1" placeholder="At least 8 characters">
+                        <label for="exampleInputPassword1" [ngClass]="{'error-label': password?.invalid && (password?.touched || password?.dirty)}">Password</label>
+                        <input type="password" class="form-control password" formControlName="password" id="exampleInputPassword1" placeholder="At least 8 characters">
+                        <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('required')" class="error-message">Can't be empty</span>
+                        <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('minlength')" class="error-message">Password must have 8 characters</span>
                     </div>
-                    <button class="mb-3 dark-button">Login</button>
+                    <button class="mb-3 dark-button" (click)="onSubmit()" [disabled]="loginForm?.invalid" [ngClass]="{'disabled-button': loginForm?.invalid}">Login</button>
                     <p class="text-center">Don't have an account? <a class="dark-text" routerLink="/register">Create account</a></p>
                 </form>
             </div>
