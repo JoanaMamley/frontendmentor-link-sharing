@@ -1,1 +1,16 @@
-<p>header works!</p>
+<div class="header-section">
+    <div class="header-items">
+        <img [src]="'images/logo-devlinks-large.svg'" alt="">
+        <div class="main-menu align-items-center">
+            <a class="main-menu-item me-4" routerLink="/home" routerLinkActive="menu-item-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">
+                <img src="images/icon-links-header.svg" alt="" class="main-menu-icon me-1" routerLinkActive="menu-icon-active">
+                <h5 class="main-menu-tab pt-2">Links</h5>
+            </a>
+            <a class="main-menu-item" routerLink="/home/profile" routerLinkActive="menu-item-active" ariaCurrentWhenActive="page">
+                <img src="images/icon-profile-details-header.svg" alt="" class="main-menu-icon me-1" routerLinkActive="menu-icon-active">
+                <h5 class="main-menu-tab pt-2">Profile Details</h5>
+            </a>
+        </div>
+        <button class="light-button" (click)="navigateToPreview()">Preview</button>
+    </div>
+</div>

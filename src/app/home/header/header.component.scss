@@ -1,0 +1,47 @@
+.header-section {
+    background: white;
+    margin: 0 auto;
+    width: 97%;
+    border-radius: 0.5rem;
+}
+
+.header-items {
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+    margin: 2rem auto;
+    padding: 0.7rem;
+}
+
+.main-menu {
+    display: flex;
+    text-wrap: nowrap;
+    width: 20%;
+    align-items: center;
+}
+
+.main-menu-item {
+    display: flex;
+    align-items: center;
+    margin-top: 0.6rem;
+}
+
+.menu-item-active {
+    background: #EFEBFF;
+    color: #633CFF;
+    padding: 0.3rem 0.7rem;
+    border-radius: 0.4rem;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.menu-icon-active {
+    filter: invert(30%) sepia(100%) saturate(6096%) hue-rotate(248deg) brightness(93%) contrast(88%);
+}
+
+.main-menu-icon, .main-menu-tab {
+    height: 100%;
+}

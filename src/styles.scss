@@ -91,6 +91,7 @@ p {
 
 a {
     text-decoration: none;
+    color: #737373;
 }
 
 a, input {
@@ -163,4 +164,20 @@ input.ng-invalid.ng-touched, .input-error {
         font-size: 15px;
     }
 
+}
+
+
+// <-----------   Header  ----------------------->
+.light-button {
+    border: 2px solid #633CFF;
+    color: #633CFF;
+    border-radius: 0.4rem;
+    background: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+}
+
+.light-button:hover, .light-button:active {
+    background: #EFEBFF;
 }

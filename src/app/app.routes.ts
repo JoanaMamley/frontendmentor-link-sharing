@@ -20,8 +20,9 @@ export const routes: Routes = [
         component: HomeComponent, 
         children: [
           {
-            path: 'links', 
+            path: '', 
             component: LinksComponent,
+            pathMatch: 'full'
           },
           {
             path: 'profile',
