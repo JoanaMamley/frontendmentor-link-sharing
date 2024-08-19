@@ -1,4 +1,44 @@
 .links-section {
-    border: 2px solid yellow;
+    background: white;
     width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.links-content {
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.light-button {
+    width: 100%;
+}
+
+.empty-img-content {
+    background: #FAFAFA;
+    padding: 1.3rem 1rem;
+}
+
+.empty-img-items {
+    width: 90%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: column;
+    align-items: center;
+}
+
+img {
+    width: 30%;
+}
+
+.empty-img-paragraph {
+    width: 70%;
+    text-align: center;
+}
+
+.dark-button {
+    width: 10%;
+    font-size: 20px;
+    align-self: flex-end;
 }

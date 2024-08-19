@@ -2,12 +2,9 @@
     margin: 0 auto;
     width: 97%;
     display: flex;
+    gap: 1%;
 }
 
 phone-mockup {
-    width: 30%;
-}
-
-router-outlet {
-    width: 60%;
+    width: 40%;
 }
