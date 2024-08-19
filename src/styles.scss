@@ -9,6 +9,10 @@ html, body{
     font-family: "Instrument Sans", sans-serif;
 }
 
+html {
+    overflow: hidden;
+}
+
 app-root {
     width: 100%;
     height: 100%;
