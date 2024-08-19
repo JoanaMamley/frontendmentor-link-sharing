@@ -1,0 +1,53 @@
+.profile-edit-section {
+    background: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+}
+
+.profile-edit-content {
+    padding: 2rem 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-pic-content, .personal-details {
+    background: #FAFAFA;
+    padding: 2rem 1rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profile-pic-label {
+    font-size: 14px;
+}
+
+.img-input {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-upload-img {
+    width: 35%;
+    padding: 2rem 1rem;
+}
+
+img {
+    width: 80%;
+}
+
+.profile-pic-specs {
+    width: 60%;
+    align-self: center;
+}
+
+
+p, h5 {
+    font-size: 13px;
+}
+
+.dark-button {
+    width: 15%;
+    font-size: 20px;
+    align-self: flex-end;
+}

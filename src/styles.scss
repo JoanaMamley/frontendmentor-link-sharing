@@ -104,7 +104,7 @@ a, input {
 
 input:focus, input:hover, input:active {
     border: 1px solid #633CFF !important;
-    box-shadow: 0 0 5pt 2pt  #EFEBFF !important;
+    box-shadow: 0 0 8pt 5pt  #EFEBFF !important;
     outline-width: 0px;
 }
 
@@ -184,4 +184,14 @@ input.ng-invalid.ng-touched, .input-error {
 
 .light-button:hover, .light-button:active {
     background: #EFEBFF;
+}
+
+.menu-item-active {
+    padding: 0.3rem 0.7rem;
+}
+
+.menu-item-active, .profile-upload-img {
+    background: #EFEBFF;
+    color: #633CFF;
+    border-radius: 0.4rem;
 }

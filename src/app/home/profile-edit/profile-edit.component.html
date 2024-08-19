@@ -1,1 +1,42 @@
-<p>profile-edit works!</p>
+<div class="profile-edit-section">
+    <div class="profile-edit-content">
+        <h2>Profile Details</h2>
+        <p class="mb-5">Add your details to create a personal touch to your profile.</p>
+        <div class="profile-pic-content row mb-4 d-flex align-items-center">
+            <p class="profile-pic-label px-0 col-sm-3">Profile picture</p>
+            <div class="img-input col-sm-9">
+                <div class="profile-upload-img">
+                    <div class="img-content">
+                        <img src="images/icon-upload-image.svg" alt="">
+                        <h5>+ Upload Image</h5>
+                    </div>
+                </div>
+                <p class="profile-pic-specs">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+            </div>
+        </div>
+        <div class="personal-details mb-5">
+            <form class="profile-edit-form">
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-3 col-form-label">First name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputPassword" placeholder="e.g. John">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-3 col-form-label">Last name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="inputPassword" placeholder="e.g. Appleseed">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label for="inputPassword" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                      <input type="email" class="form-control" id="inputPassword" placeholder="e.g. email@example.com">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <hr>
+        <button class="dark-button" [disabled]="true" [ngClass]="{'disabled-button': true}">Save</button>
+    </div>
+</div>
