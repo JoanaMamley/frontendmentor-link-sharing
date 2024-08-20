@@ -1,12 +1,4 @@
-.profile-edit-section {
-    background: white;
-    width: 100%;
-    height: 100%;
-    border-radius: 1rem;
-}
-
 .profile-edit-content {
-    padding: 2rem 3rem;
     display: flex;
     flex-direction: column;
 }
@@ -16,6 +8,14 @@
     padding: 2rem 1rem;
     width: 100%;
     margin: 0 auto;
+}
+
+.img-content {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-pic-label {
@@ -29,7 +29,7 @@
 
 .profile-upload-img {
     width: 35%;
-    padding: 2rem 1rem;
+    padding: 1rem;
 }
 
 img {
@@ -47,7 +47,7 @@ p, h5 {
 }
 
 .dark-button {
-    width: 15%;
+    width: 12%;
     font-size: 20px;
     align-self: flex-end;
 }

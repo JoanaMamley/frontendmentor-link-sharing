@@ -31,10 +31,14 @@ h5 {
     font-weight: 600;
 }
 
-.menu-icon-active {
+.menu-icon-active, .highlighted {
     filter: invert(30%) sepia(100%) saturate(6096%) hue-rotate(248deg) brightness(93%) contrast(88%);
 }
 
 .main-menu-icon, .main-menu-tab {
     height: 100%;
+}
+
+.main-menu-tab-highlight {
+    color: #633CFF;
 }

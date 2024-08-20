@@ -2,13 +2,16 @@
     <div class="header-items">
         <img [src]="'images/logo-devlinks-large.svg'" alt="">
         <div class="main-menu align-items-center">
-            <a class="main-menu-item me-4" routerLink="/home" routerLinkActive="menu-item-active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }">
-                <img src="images/icon-links-header.svg" alt="" class="main-menu-icon me-1" routerLinkActive="menu-icon-active" [routerLinkActiveOptions]="{ exact: true }">
-                <h5 class="main-menu-tab pt-2">Links</h5>
+            <a class="main-menu-item me-4" routerLink="/home" routerLinkActive="menu-item-active" 
+                ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }" (mouseover)="highlight()" (mouseout)="removeHighlight()">
+                <img src="images/icon-links-header.svg" alt="" class="main-menu-icon me-1" routerLinkActive="menu-icon-active" 
+                    [routerLinkActiveOptions]="{ exact: true }" [ngClass]="{'highlighted': highlighted === true}">
+                <h5 class="main-menu-tab pt-2" [ngClass]="{'main-menu-tab-highlight': highlighted === true}">Links</h5>
             </a>
-            <a class="main-menu-item" routerLink="/home/profile" routerLinkActive="menu-item-active" ariaCurrentWhenActive="page">
-                <img src="images/icon-profile-details-header.svg" alt="" class="main-menu-icon me-1" routerLinkActive="menu-icon-active">
-                <h5 class="main-menu-tab pt-2">Profile Details</h5>
+            <a class="main-menu-item" routerLink="/home/profile" routerLinkActive="menu-item-active" ariaCurrentWhenActive="page" (mouseover)="highlight()" (mouseout)="removeHighlight()">
+                <img src="images/icon-profile-details-header.svg" alt="" class="main-menu-icon me-1" 
+                    routerLinkActive="menu-icon-active" [ngClass]="{'highlighted': highlighted === true}">
+                <h5 class="main-menu-tab pt-2" [ngClass]="{'main-menu-tab-highlight': highlighted === true}">Profile Details</h5>
             </a>
         </div>
         <button class="light-button" (click)="navigateToPreview()">Preview</button>

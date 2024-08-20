@@ -34,5 +34,5 @@ export const routes: Routes = [
         path: 'preview',
         component: PreviewComponent,
       },
-      { path: '',   redirectTo: '/register', pathMatch: 'full' }, 
+      { path: '',   redirectTo: '/login', pathMatch: 'full' }, 
 ];
