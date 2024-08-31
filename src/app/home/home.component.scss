@@ -15,3 +15,32 @@ phone-mockup {
     padding: 1rem;
     border-radius: 1rem;
 }
+
+@media (min-width: 530px) and (max-width: 800px) {
+    phone-mockup {
+        display: none;
+    }
+
+    .main-content {
+        width: 98%;
+        padding: 2rem;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 529px) {
+    phone-mockup {
+        display: none;
+    }
+
+    .lower-section {
+        width: 100%;
+        margin: 0;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 1rem;
+        margin: 0;
+    }
+}

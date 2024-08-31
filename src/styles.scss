@@ -10,7 +10,7 @@ html, body{
 }
 
 html {
-    overflow: hidden;
+    overflow: auto;
 }
 
 app-root {
@@ -140,13 +140,6 @@ input.ng-invalid.ng-touched, .input-error {
 }
 
 @media screen and (max-width: 550px) {
-    html, body{
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        background: white;
-    }
-
     .auth-background {
         display: block;
     }
@@ -168,6 +161,20 @@ input.ng-invalid.ng-touched, .input-error {
         font-size: 15px;
     }
 
+    .dark-button {
+        background: #633CFF;
+        border: 2px solid #633CFF;
+        border-radius: 0.3rem;
+        padding: 0.2rem;
+        font-size: 1.1rem;
+        color: white;
+    }
+
+    .disabled-button {
+        background: #BEADFF;
+        border: 2px solid #BEADFF;
+        cursor: not-allowed;
+    }
 }
 
 

@@ -1,9 +1,9 @@
-.links-section {
-    background: white;
-    width: 100%;
-    height: 100%;
-    border-radius: 1rem;
-}
+// .links-section {
+//     background: white;
+//     width: 100%;
+//     height: 100%;
+//     border-radius: 1rem;
+// }
 
 .links-content {
     display: flex;
@@ -37,7 +37,27 @@ img {
 }
 
 .dark-button {
-    width: 12%;
+    width: 20%;
     font-size: 20px;
     align-self: flex-end;
+}
+
+@media (max-width: 529px) {
+    .lower-section {
+        width: 100%;
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 0.5rem;
+    }
+
+    .links-content {
+        align-items: center;
+    }
+
+    .dark-button {
+        width: 20%;
+        align-self: flex-end;
+    }
 }

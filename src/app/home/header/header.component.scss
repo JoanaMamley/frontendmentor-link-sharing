@@ -13,6 +13,10 @@
     padding: 0.7rem;
 }
 
+.logo-small {
+    display: none;
+}
+
 .main-menu {
     display: flex;
     text-wrap: nowrap;
@@ -42,3 +46,64 @@ h5 {
 .main-menu-tab-highlight {
     color: #633CFF;
 }
+
+
+@media (min-width: 500px) and (max-width: 750px) {
+    .header-items {
+        margin: 1rem auto;
+        padding: 0.2rem;
+    }
+    
+    .logo-large{
+        width: 25%;
+    }
+
+    .main-menu {
+        display: flex;
+        text-wrap: nowrap;
+        width: 10%;
+        align-items: center;
+        margin-right: 7rem;
+    }
+
+    h5 {
+        font-size: 12px;
+    }
+
+    .light-button {
+        border-radius: 6px;
+        font-size: 12px;
+        padding: 5px 9px;
+    }
+}
+
+@media (max-width: 499px) {
+    .header-items {
+        margin: 1rem auto;
+        padding: 0.2rem;
+    }
+    
+    .logo-large{
+        display: none;
+    }
+
+    .logo-small {
+        display: block;
+    }
+
+    .main-menu {
+        width: 10%;
+        margin-right: 2rem;
+    }
+
+    h5 {
+        display: none;
+    }
+
+    .light-button {
+        border-radius: 6px;
+        font-size: 12px;
+        padding: 5px 9px;
+    }
+}
+  

@@ -1,8 +1,9 @@
 <div class="header-section">
     <div class="header-items">
-        <img [src]="'images/logo-devlinks-large.svg'" alt="">
-        <div class="main-menu align-items-center">
-            <a class="main-menu-item me-4" routerLink="/home" routerLinkActive="menu-item-active" 
+        <img [src]="'images/logo-devlinks-large.svg'" alt="" class="logo-large">
+        <img [src]="'images/logo-devlinks-small.svg'" alt="" class="logo-small">
+        <div class="main-menu">
+            <a class="main-menu-item me-2" routerLink="/home" routerLinkActive="menu-item-active" 
                 ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{ exact: true }" (mouseover)="highlight()" (mouseout)="removeHighlight()">
                 <img src="images/icon-links-header.svg" alt="" class="main-menu-icon me-1" routerLinkActive="menu-icon-active" 
                     [routerLinkActiveOptions]="{ exact: true }" [ngClass]="{'highlighted': highlighted === true}">
