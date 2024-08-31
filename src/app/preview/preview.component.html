@@ -1,1 +1,22 @@
-<p>preview works!</p>
+<div class="preview-section">
+    <div class="upper-preview">
+        <div class="preview-header">
+            <button class="light-button">Back to Editor</button>
+            <button class="dark-button">Share link</button>
+        </div>
+    </div>
+    <div class="preview-card mx-auto">
+        <div class="preview-content">
+            <img src="images/empty_profile_image.png" class="empty-img" alt="">
+            <h2 class="mb-3 mt-4">Ben Wright</h2>
+            <p class="mb-5">ben&#64;example.com</p>
+            <div class="link-bar mb-3" *ngFor="let link of linkItems" [ngStyle]="{'background-color': link.color}">
+                <div class="link-details">
+                    <img [src]="getlinkIcon(link)" alt="" class="link-icon">
+                    <h6 class="pt-2 ms-1">{{ link.name }}</h6>
+                </div>
+                <img src="images/icon-arrow-right.svg" alt="">
+            </div>
+        </div>
+    </div>
+</div>
