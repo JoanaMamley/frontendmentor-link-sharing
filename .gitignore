@@ -6,6 +6,10 @@
 /out-tsc
 /bazel-out
 
+# virtual environment and python executable
+api/.venv/
+__pycache__/
+
 # Node
 /node_modules
 npm-debug.log
