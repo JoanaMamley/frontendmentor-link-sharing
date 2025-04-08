@@ -6,9 +6,11 @@
 /out-tsc
 /bazel-out
 
-# virtual environment and python executable
+# backend
 api/.venv/
 __pycache__/
+api/.env
+api/docker-compose.yml
 
 # Node
 /node_modules
