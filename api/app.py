@@ -21,7 +21,6 @@ def create_app():
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
     }})
-    print('allowed')
     app.config["API_TITLE"] = "Link Share REST API"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.0.3"

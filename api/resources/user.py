@@ -38,7 +38,6 @@ class User(MethodView):
     when we are manipulating data regarding the users.
     """
 
-    @jwt_required()
     @blp.response(200, UserSchema)
     def get(self, user_id):
         user = UserModel.query.get_or_404(user_id)
@@ -59,6 +58,12 @@ class User(MethodView):
     @blp.arguments(UserSchema)
     @blp.response(200, UserSchema)
     def put(self, user_data, user_id):
+        current_user_id = get_jwt_identity()
+
+        # Check if the user is trying to access their own data
+        if current_user_id != user_id and not get_jwt().get("is_admin"):
+            abort(403, message="You do not have permission to access this resource.")
+
         user = UserModel.query.get(user_id)
 
         if user:
