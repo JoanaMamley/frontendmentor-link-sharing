@@ -6,12 +6,13 @@ from models import UserModel
 from passlib.hash import pbkdf2_sha256
 from db import db
 from blocklist import BLOCKLIST
+from flask import make_response
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
 
 
-@blp.route("/register")
+@blp.route("/register", methods=["POST"])
 class UserRegister(MethodView):
     @blp.arguments(UserAuthSchema)
     def post(self, user_data):
@@ -28,7 +29,7 @@ class UserRegister(MethodView):
         return {"message": "User created successfully."}, 201
 
 
-@blp.route("/user/<int:user_id>")
+@blp.route("/user/<int:user_id>", methods=["GET", "DELETE", "PUT"])
 class User(MethodView):
     """
     This resource can be useful when testing our Flask app.
@@ -45,10 +46,7 @@ class User(MethodView):
 
     @jwt_required(fresh=True)
     def delete(self, user_id):
-        # current_user = get_jwt_identity()
-        # print(current_user)
         jwt = get_jwt()
-        # print(jwt.get("is_admin"))
         if not jwt.get("is_admin"):
             abort(401, message="Admin privilege required.")
 
@@ -76,11 +74,10 @@ class User(MethodView):
         return user
 
 
-@blp.route("/login")
+@blp.route("/login", methods=["POST"])
 class UserLogin(MethodView):
     @blp.arguments(UserAuthSchema)
     def post(self, user_data):
-        # print(user_data)
         user = UserModel.query.filter(
             UserModel.email == user_data["email"]
         ).first()
@@ -93,7 +90,7 @@ class UserLogin(MethodView):
         abort(401, message="Invalid credentials.")
 
 
-@blp.route("/logout")
+@blp.route("/logout", methods=["POST"])
 class UserLogout(MethodView):
     @jwt_required()
     def post(self):
@@ -101,7 +98,7 @@ class UserLogout(MethodView):
         BLOCKLIST.add(jti)
         return {"message": "Successfully logged out"}, 200
 
-@blp.route("/refresh")
+@blp.route("/refresh", methods=["POST"])
 class TokenRefresh(MethodView):
     @jwt_required(refresh=True)
     def post(self):

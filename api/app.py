@@ -8,6 +8,7 @@ from blocklist import BLOCKLIST
 from resources import UserBlueprint, LinkBlueprint
 from flask_smorest import Blueprint
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv()  # This loads .env variables into os.environ
 
@@ -15,6 +16,12 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/*": {
+        "origins": "http://localhost:4200",
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }})
+    print('allowed')
     app.config["API_TITLE"] = "Link Share REST API"
     app.config["API_VERSION"] = "v1"
     app.config["OPENAPI_VERSION"] = "3.0.3"

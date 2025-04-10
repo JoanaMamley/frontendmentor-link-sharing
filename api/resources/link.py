@@ -9,7 +9,7 @@ from sqlalchemy.exc import SQLAlchemyError
 blp = Blueprint("Links", "links", description="Operations on links")
 
 
-@blp.route("/link/<int:link_id>")
+@blp.route("/link/<int:link_id>", methods=["GET", "DELETE", "PUT"])
 class Link(MethodView):
     @jwt_required()
     @blp.response(200, LinkSchema)
@@ -43,7 +43,7 @@ class Link(MethodView):
         return link
 
 
-@blp.route("/link")
+@blp.route("/link", methods=["POST"])
 class LinkList(MethodView):
     @jwt_required(fresh=True)
     @blp.arguments(LinkSchema)
