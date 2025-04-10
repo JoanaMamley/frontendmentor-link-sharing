@@ -32,8 +32,8 @@
                         <span *ngIf="hasPasswordMismatchError" class="error-message">Passwords don't match!</span>
                     </div>
 
-                    <span id="emailHelp" class="form-text text-muted mb-3">Password must contain at least 8 characters</span>
-                    <button class="mb-3 dark-button" (click)="onSubmit()" [disabled]="signUpForm?.invalid" [ngClass]="{'disabled-button': signUpForm?.invalid}">Create new account</button>
+                    <span id="emailHelp" class="mb-3 error-message fs-6" *ngIf="registrationError">{{ registrationError }}</span>
+                    <button class="mb-3 dark-button" [disabled]="signUpForm?.invalid" [ngClass]="{'disabled-button': signUpForm?.invalid}">Create new account</button>
                     <p class="text-center">Already have an account? <a class="dark-text" routerLink="/login">Login</a></p>
                 </form>
             </div>

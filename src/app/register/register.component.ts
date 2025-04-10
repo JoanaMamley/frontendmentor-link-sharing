@@ -1,19 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../shared/services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnInit{
   signUpForm?: FormGroup;
+  registrationError: string | null = null;
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private userService: UserService){}
 
   ngOnInit(): void {
     this.signUpForm = new FormGroup({
@@ -38,8 +41,19 @@ export class RegisterComponent implements OnInit{
   }
 
   onSubmit() {
-    console.log(this.signUpForm);
-   this.router.navigateByUrl('/login');
+    if (this.signUpForm?.valid) {
+      this.userService.register({
+        email: this.signUpForm?.get('email')?.value,
+        password: this.signUpForm?.get('password')?.value
+      }).subscribe({
+        next: (response) => {
+          this.router.navigateByUrl('/login');
+        },
+        error: (error) => {
+          this.registrationError = error.error.message;
+        }
+      });
+    }
   }
 
   get email(): AbstractControl<any, any> | null | undefined {
