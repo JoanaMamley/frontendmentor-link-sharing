@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
-import { HttpClientModule } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit, OnDestroy{
   signUpForm?: FormGroup;
   registrationError: string | null = null;
+  subscriptions: Subscription[] = [];
 
   constructor(private router: Router, private userService: UserService){}
 
@@ -26,33 +27,40 @@ export class RegisterComponent implements OnInit{
     }, this.passwordMatchValidator())
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   passwordMatchValidator(): ValidatorFn {
     return (formGroup: AbstractControl): { [key: string]: boolean } | null => {
       const passwordControl = formGroup.get('password');
       const confirmPasswordControl = formGroup.get('confirmPassword');
-  
+
       if (passwordControl && confirmPasswordControl && passwordControl.value !== confirmPasswordControl.value) {
         confirmPasswordControl.setErrors({ passwordMismatch: true });
         return { passwordMismatch: true };
       }
-  
+
       return null;
     };
   }
 
   onSubmit() {
     if (this.signUpForm?.valid) {
-      this.userService.register({
+      const sub: Subscription = this.userService.register({
         email: this.signUpForm?.get('email')?.value,
         password: this.signUpForm?.get('password')?.value
       }).subscribe({
         next: (response) => {
+          this.registrationError = null;
           this.router.navigateByUrl('/login');
         },
         error: (error) => {
           this.registrationError = error.error.message;
         }
       });
+
+      this.subscriptions.push(sub);
     }
   }
 
