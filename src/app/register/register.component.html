@@ -11,28 +11,28 @@
 
                 <form class="auth-form-items" [formGroup]="signUpForm!" (ngSubmit)="onSubmit()">
                     <div class="form-group mb-3">
-                        <label for="exampleInputEmail1" [ngClass]="{'error-label': email?.invalid && (email?.touched || email?.dirty)}">Email address</label>
-                        <input type="email" class="form-control email" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email" placeholder="e.g alex@gmail.com">
+                        <label for="exampleInputEmail1" [ngClass]="{'error-label': (email?.invalid && (email?.touched || email?.dirty)) || registrationError}">Email address</label>
+                        <input type="email" class="form-control email" id="exampleInputEmail1" aria-describedby="emailHelp" formControlName="email" placeholder="e.g alex@gmail.com" [ngClass]="{'input-error': registrationError}">
                         <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('required')" class="error-message">Can't be empty</span>
                         <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('email')" class="error-message">Not a valid email</span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="exampleInputPassword1" [ngClass]="{'error-label': (password?.invalid && (password?.touched || password?.dirty)) || hasPasswordMismatchError}">Create password</label>
-                        <input type="password" class="form-control password" id="exampleInputPassword1" formControlName="password" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError}">
+                        <label for="exampleInputPassword1" [ngClass]="{'error-label': (password?.invalid && (password?.touched || password?.dirty)) || hasPasswordMismatchError || registrationError}">Create password</label>
+                        <input type="password" class="form-control password" id="exampleInputPassword1" formControlName="password" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError || registrationError}">
                         <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('required')" class="error-message">Can't be empty</span>
                         <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('minlength')" class="error-message">Password must have 8 characters</span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="exampleInputPassword2" [ngClass]="{'error-label': (confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)) || hasPasswordMismatchError}">Confirm password</label>
-                        <input type="password" class="form-control password" formControlName="confirmPassword" id="exampleInputPassword2" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError}">
+                        <label for="exampleInputPassword2" [ngClass]="{'error-label': (confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty)) || hasPasswordMismatchError || registrationError}">Confirm password</label>
+                        <input type="password" class="form-control password" formControlName="confirmPassword" id="exampleInputPassword2" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError || registrationError}">
                         <span *ngIf="confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty) && confirmPassword?.hasError('required')" class="error-message">Can't be empty</span>
                         <span *ngIf="confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty) && confirmPassword?.hasError('minlength')" class="error-message">Password must have 8 characters</span>
                         <span *ngIf="hasPasswordMismatchError" class="error-message">Passwords don't match!</span>
                     </div>
 
-                    <span id="emailHelp" class="mb-3 error-message fs-6" *ngIf="registrationError">{{ registrationError }}</span>
+                    <span class="mb-3 error-message fs-6" *ngIf="registrationError">{{ registrationError }}</span>
                     <button class="mb-3 dark-button" [disabled]="signUpForm?.invalid" [ngClass]="{'disabled-button': signUpForm?.invalid}">Create new account</button>
                     <p class="text-center">Already have an account? <a class="dark-text" routerLink="/login">Login</a></p>
                 </form>
