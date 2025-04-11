@@ -6,7 +6,7 @@ from models import UserModel
 from passlib.hash import pbkdf2_sha256
 from db import db
 from blocklist import BLOCKLIST
-from flask import make_response
+from flask import jsonify
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
@@ -90,9 +90,14 @@ class UserLogin(MethodView):
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             access_token = create_access_token(identity=str(user.id), fresh=True)
             refresh_token = create_refresh_token(str(user.id))
-            return {"access_token": access_token, "refresh_token": refresh_token}, 200
 
-        abort(401, message="Invalid credentials.")
+            # Set cookies with HTTPOnly, Secure and SameSite flags
+            response = jsonify({"message": "Login successful"})
+            response.set_cookie("access_token", access_token, httponly=True, samesite='Strict', max_age=3600)
+            response.set_cookie("refresh_token", refresh_token, httponly=True, samesite='Strict', max_age=86400)
+            return response, 200
+
+        abort(401, message="Invalid credentials")
 
 
 @blp.route("/logout", methods=["POST"])
@@ -101,15 +106,23 @@ class UserLogout(MethodView):
     def post(self):
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
-        return {"message": "Successfully logged out"}, 200
+
+        response = jsonify({"message": "Logged out successfully"})
+        # Delete cookies by setting their expiration date to a past date
+        response.set_cookie("access_token", "", expires=0, httponly=True, samesite='Strict')
+        response.set_cookie("refresh_token", "", expires=0, httponly=True, samesite='Strict')
+        return response, 200
 
 @blp.route("/refresh", methods=["POST"])
 class TokenRefresh(MethodView):
     @jwt_required(refresh=True)
     def post(self):
         current_user = get_jwt_identity()
-        new_token = create_access_token(identity=str(current_user), fresh=False)
+        new_access_token = create_access_token(identity=str(current_user), fresh=False)
         # Make it clear that when to add the refresh token to the blocklist will depend on the app design
         jti = get_jwt()["jti"]
         BLOCKLIST.add(jti)
-        return {"access_token": new_token}, 200
+
+        response = jsonify({"access_token": new_access_token})
+        response.set_cookie("access_token", new_access_token, httponly=True, samesite='Strict', max_age=3600)
+        return response, 200

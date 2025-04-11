@@ -16,7 +16,7 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {
+    CORS(app, supports_credentials=True, resources={r"/*": {
         "origins": "http://localhost:4200",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
