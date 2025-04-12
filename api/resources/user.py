@@ -6,7 +6,6 @@ from models import UserModel
 from passlib.hash import pbkdf2_sha256
 from db import db
 from blocklist import BLOCKLIST
-from flask import jsonify, request
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
