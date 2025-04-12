@@ -26,6 +26,10 @@ export class AuthService {
     return this.http.post<GenericResponse>(`${environment.apiUrl}/refresh`, {}, { withCredentials: true });
   }
 
+  isAuthenticated(): Observable<GenericResponse> {
+    return this.http.get<GenericResponse>(`${environment.apiUrl}/isAuthenticated`, { withCredentials: true });
+  }
+
   set isLoggedIn(value: boolean) {
     this._isLoggedIn = value;
   }

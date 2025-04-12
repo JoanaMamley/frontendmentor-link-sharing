@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, request
 from flask.views import MethodView
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt, get_jwt_identity, jwt_required
 from flask_smorest import Blueprint, abort
@@ -87,6 +87,17 @@ class Me(MethodView):
         user = UserModel.query.get_or_404(user_id)
         return user
 
+
+@blp.route('/isAuthenticated', methods=['GET'])
+class isAuthenticated(MethodView):
+    def get(self):
+        access_token = request.cookies.get('access_token')
+
+        if access_token:
+            return jsonify({"message": "User is authenticated"}), 200
+        else:
+            return jsonify({"message": "User is not authenticated"}), 401
+
 @blp.route("/login", methods=["POST"])
 class UserLogin(MethodView):
     @blp.arguments(UserAuthSchema)
@@ -120,6 +131,7 @@ class UserLogout(MethodView):
         response.set_cookie("access_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1:4200')
         response.set_cookie("refresh_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1:4200')
         return response, 200
+
 
 @blp.route("/refresh", methods=["POST"])
 class TokenRefresh(MethodView):
