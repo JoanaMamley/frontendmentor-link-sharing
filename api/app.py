@@ -17,7 +17,7 @@ api_bp = Blueprint('api', __name__, url_prefix='/api')
 def create_app():
     app = Flask(__name__)
     CORS(app, supports_credentials=True, resources={r"/*": {
-        "origins": "http://localhost:4200",
+        "origins": "http://127.0.0.1:4200",
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"]
     }})
@@ -46,6 +46,10 @@ def create_app():
     api = Api(app)
 
     app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+    app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
+    app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token"
+    app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token"
+
     jwt = JWTManager(app)
 
     @jwt.additional_claims_loader

@@ -6,7 +6,7 @@ from models import UserModel
 from passlib.hash import pbkdf2_sha256
 from db import db
 from blocklist import BLOCKLIST
-from flask import jsonify
+from flask import jsonify, request
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
@@ -78,6 +78,14 @@ class User(MethodView):
 
         return user
 
+@blp.route("user/me", methods=["GET"])
+class Me(MethodView):
+    @jwt_required()
+    @blp.response(200, UserSchema)
+    def get(self):
+        user_id = get_jwt_identity()
+        user = UserModel.query.get_or_404(user_id)
+        return user
 
 @blp.route("/login", methods=["POST"])
 class UserLogin(MethodView):
@@ -93,8 +101,8 @@ class UserLogin(MethodView):
 
             # Set cookies with HTTPOnly, Secure and SameSite flags
             response = jsonify({"message": "Login successful"})
-            response.set_cookie("access_token", access_token, httponly=True, samesite='Strict', max_age=3600)
-            response.set_cookie("refresh_token", refresh_token, httponly=True, samesite='Strict', max_age=86400)
+            response.set_cookie("access_token", access_token, httponly=True, samesite='Strict', max_age=3600, domain='127.0.0.1:4200')
+            response.set_cookie("refresh_token", refresh_token, httponly=True, samesite='Strict', max_age=86400, domain='127.0.0.1:4200')
             return response, 200
 
         abort(401, message="Invalid credentials")
@@ -109,8 +117,8 @@ class UserLogout(MethodView):
 
         response = jsonify({"message": "Logged out successfully"})
         # Delete cookies by setting their expiration date to a past date
-        response.set_cookie("access_token", "", expires=0, httponly=True, samesite='Strict')
-        response.set_cookie("refresh_token", "", expires=0, httponly=True, samesite='Strict')
+        response.set_cookie("access_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1:4200')
+        response.set_cookie("refresh_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1:4200')
         return response, 200
 
 @blp.route("/refresh", methods=["POST"])
@@ -124,5 +132,5 @@ class TokenRefresh(MethodView):
         BLOCKLIST.add(jti)
 
         response = jsonify({"access_token": new_access_token})
-        response.set_cookie("access_token", new_access_token, httponly=True, samesite='Strict', max_age=3600)
+        response.set_cookie("access_token", new_access_token, httponly=True, samesite='Strict', max_age=3600, domain='127.0.0.1:4200')
         return response, 200
