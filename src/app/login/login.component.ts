@@ -4,6 +4,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validator
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../shared/services/auth.service';
 import { Subscription } from 'rxjs';
+import { GenericResponse } from '../shared/models/generic.model';
 
 @Component({
   selector: 'app-login',
@@ -30,22 +31,22 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.loginForm?.valid) {
-      const sub: Subscription = this.authService.login({
+      const res: void | GenericResponse = await this.authService.login({
         email: this.loginForm?.value.email,
         password: this.loginForm?.value.password
-      }).subscribe({
-        next: () => {
-          this.loginError = null;
-          this.router.navigateByUrl('/home');
-        },
-        error: (err) => {
-          this.loginError = err.error.message;
-        }
-      });
+      }).catch(err => {
+        this.authService.isLoggedIn = false;
+        this.loginError = err.error.message;
+        console.error(err);
+      })
 
-      this.subscriptions.push(sub);
+      if (res && res.message === 'Login successful') {
+        this.loginError = null;
+        this.authService.isLoggedIn = true;
+        this.router.navigateByUrl('/home');
+      }
     }
   }
 

@@ -45,22 +45,15 @@ export class RegisterComponent implements OnInit, OnDestroy{
     };
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.signUpForm?.valid) {
-      const sub: Subscription = this.userService.register({
+       await this.userService.register({
         email: this.signUpForm?.get('email')?.value,
         password: this.signUpForm?.get('password')?.value
-      }).subscribe({
-        next: (response) => {
-          this.registrationError = null;
-          this.router.navigateByUrl('/login');
-        },
-        error: (error) => {
-          this.registrationError = error.error.message;
-        }
+      }).catch((error) => {
+        this.registrationError = error.error.message;
       });
-
-      this.subscriptions.push(sub);
+      this.router.navigate(['/login']);
     }
   }
 
