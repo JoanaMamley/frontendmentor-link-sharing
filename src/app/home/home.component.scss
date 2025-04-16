@@ -1,7 +1,18 @@
+.full-page {
+    width: 90%;
+    max-width: 1900px;
+    margin: 0 auto;
+}
+
+.header {
+    width: 100%;
+}
+
 .lower-section {
     margin: 0 auto;
     width: 97%;
     display: flex;
+    justify-content: space-between;
     gap: 1%;
 }
 
