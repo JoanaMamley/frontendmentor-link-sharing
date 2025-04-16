@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../shared/services/auth.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'home-header',
@@ -10,19 +12,13 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  highlighted: boolean = false;
-
-  constructor(private router: Router){}
-  
-  navigateToPreview() {
-    this.router.navigateByUrl('/preview')
-  }
-
-  highlight(){
-    this.highlighted = true;
-  }
-
-  removeHighlight(){
-    this.highlighted = false;
+  constructor(private authService: AuthService, private router: Router) {}
+ 
+  async logout() {
+    await lastValueFrom(this.authService.logout()).catch((error) => {
+      console.error('Logout failed:', error);
+    }
+    );
+    this.router.navigateByUrl('/login');
   }
 }
