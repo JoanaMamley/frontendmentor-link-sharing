@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
         return this.authService.isAuthenticated().pipe(
             map(isAuth => {
-            return isAuth.message === 'User is authenticated' ? true : this.router.createUrlTree(['/login']);
+            return isAuth.message === 'User is authenticated' || isAuth.message === 'User is authenticated with refresh token' ? true : this.router.createUrlTree(['/login']);
             }),
             catchError(error => {
             if (error instanceof HttpErrorResponse && error.error?.message === 'User is not authenticated') {
