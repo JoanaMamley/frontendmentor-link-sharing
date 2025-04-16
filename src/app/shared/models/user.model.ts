@@ -1,7 +1,7 @@
 import { Link } from "./link.model";
 
 export interface User {
-  id: string;
+  id: number;
   email: string;
   firstname: string;
   lastname: string;

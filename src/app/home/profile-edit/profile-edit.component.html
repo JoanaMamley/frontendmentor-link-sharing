@@ -14,27 +14,30 @@
         </div>
     </div>
     <div class="personal-details mb-5">
-        <form class="profile-edit-form">
+        <form class="profile-edit-form" *ngIf="profileForm" [formGroup]="profileForm!">
             <div class="mb-2 row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">First name</label>
+                <label for="inputFirstName" class="col-sm-3 col-form-label" [ngClass]="{'error-label': firstname?.invalid && (firstname?.touched || firstname?.dirty)}">First name*</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="e.g. John">
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="e.g. John" formControlName="firstname">
+                    <span *ngIf="firstname?.invalid && (firstname?.touched || firstname?.dirty) && firstname?.hasError('required')" class="error-message">Can't be empty</span>
                 </div>
             </div>
             <div class="mb-2 row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">Last name</label>
+                <label for="inputLastName" class="col-sm-3 col-form-label" [ngClass]="{'error-label': lastname?.invalid && (lastname?.touched || lastname?.dirty)}">Last name*</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="inputPassword" placeholder="e.g. Appleseed">
+                    <input type="text" class="form-control" id="inputLastName" placeholder="e.g. Appleseed" formControlName="lastname">
+                    <span *ngIf="lastname?.invalid && (lastname?.touched || lastname?.dirty) && lastname?.hasError('required')" class="error-message">Can't be empty</span>
                 </div>
             </div>
             <div class="mb-2 row">
-                <label for="inputPassword" class="col-sm-3 col-form-label">Email</label>
+                <label for="inputEmail" class="col-sm-3 col-form-label" [ngClass]="{'error-label': email?.invalid && (email?.touched || email?.dirty)}">Email</label>
                 <div class="col-sm-9">
-                    <input type="email" class="form-control" id="inputPassword" placeholder="e.g. email@example.com">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="e.g. email@example.com" formControlName="email">
+                    <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('email')" class="error-message">Not a valid email</span>
                 </div>
             </div>
         </form>
     </div>
     <hr>
-    <button class="dark-button" [disabled]="true" [ngClass]="{'disabled-button': true}">Save</button>
+    <button class="dark-button" (click)="updateProfile()" [disabled]="profileForm?.invalid" [ngClass]="{'disabled-button': profileForm?.invalid}">Save</button>
 </div>

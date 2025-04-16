@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     const sub: Subscription = this.userService.getCurrentUser().subscribe({
       next: (user) => {
         this.user = user;
+        this.userService.setCurrentUser(user);
       },
       error: (error) => {
         console.error('Error fetching current user:', error);
