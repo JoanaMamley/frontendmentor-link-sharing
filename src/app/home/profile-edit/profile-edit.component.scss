@@ -1,11 +1,12 @@
 .profile-edit-content {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .profile-pic-content, .personal-details {
     background: #FAFAFA;
-    padding: 2rem 1rem;
+    padding: 3rem;
     width: 100%;
     margin: 0 auto;
 }
@@ -16,33 +17,41 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: #EFEBFF;
+    padding: 3rem;
+    border-radius: 0.5rem;
 }
 
-.profile-pic-label {
-    font-size: 14px;
+.profile-pic-label, .col-form-label {
+    font-size: 1rem;
+    color: #737373;
 }
 
 .img-input {
     display: flex;
     justify-content: space-between;
+    border: 2px solid yellow;
 }
 
 .profile-upload-img {
-    width: 35%;
     padding: 1rem;
+    border: 2px solid red;
 }
 
 img {
-    width: 80%;
+    width: 15%;
 }
 
-.profile-pic-specs {
-    width: 60%;
-    align-self: center;
+.select-img {
+    color: #633CFF;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: #633CFF;
+    font-size: 1rem;
 }
 
 
-p, h5 {
+p {
     font-size: 13px;
 }
 
@@ -50,4 +59,10 @@ p, h5 {
     width: 15%;
     font-size: 20px;
     align-self: flex-end;
+}
+
+@media (max-width: 529px) {
+    .dark-button {
+        width: 20%;
+    }
 }

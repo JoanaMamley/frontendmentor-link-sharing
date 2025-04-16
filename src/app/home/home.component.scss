@@ -18,6 +18,7 @@
 
 phone-mockup {
     width: 40%;
+    height: 78vh;
 }
 
 .main-content {
@@ -25,6 +26,8 @@ phone-mockup {
     width: 55%;
     padding: 1rem;
     border-radius: 1rem;
+    height: 78vh; /* 👈 fixed height */
+    overflow-y: auto;
 }
 
 @media (min-width: 530px) and (max-width: 800px) {

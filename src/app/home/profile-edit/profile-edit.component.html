@@ -3,14 +3,17 @@
     <p class="mb-4">Add your details to create a personal touch to your profile.</p>
     <div class="profile-pic-content row mb-3 d-flex align-items-center">
         <p class="profile-pic-label px-0 col-sm-3">Profile picture</p>
-        <div class="img-input col-sm-9">
-            <div class="profile-upload-img">
+        <div class="col-sm-9 row">
+            <div class="col-sm-8">
                 <div class="img-content">
-                    <img src="images/icon-upload-image.svg" alt="">
-                    <h5>+ Upload Image</h5>
+                    <img src="images/icon-upload-image.svg" alt="" class="profile-img">
+                    <label class="select-img mt-3">
+                        <span class="text-center">Select image</span>
+                        <input type="file" accept="image/*" class="d-none" (change)="onFileSelected($event)">
+                    </label>
                 </div>
             </div>
-            <p class="profile-pic-specs">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+            <p class="col-sm-4 align-self-center text-center">Image must be below 1024x1024px. Use PNG or JPG format.</p>
         </div>
     </div>
     <div class="personal-details mb-5">

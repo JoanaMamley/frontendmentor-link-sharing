@@ -2,20 +2,24 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/models/user.model';
-import { last, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-profile-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule],
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule, MatIconModule],
   templateUrl: './profile-edit.component.html',
   styleUrl: './profile-edit.component.scss'
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
+onFileSelected($event: Event) {
+throw new Error('Method not implemented.');
+}
   user?: User;
   subscriptions: Subscription[] = [];
   profileForm?: FormGroup;
