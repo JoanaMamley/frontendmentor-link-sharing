@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { PhoneMockupComponent } from './phone-mockup/phone-mockup.component';
 import { UserService } from '../shared/services/user.service';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   user?: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     const sub: Subscription = this.userService.getCurrentUser().subscribe({
@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       },
       error: (error) => {
         console.error('Error fetching current user:', error);
+        this.router.navigateByUrl('/login');
       }
     });
 
