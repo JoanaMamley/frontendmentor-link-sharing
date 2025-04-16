@@ -1,3 +1,4 @@
+from datetime import timedelta
 import os
 import secrets
 from flask import Flask, jsonify
@@ -49,6 +50,10 @@ def create_app():
     app.config["JWT_TOKEN_LOCATION"] = ["cookies"]
     app.config["JWT_ACCESS_COOKIE_NAME"] = "access_token"
     app.config["JWT_REFRESH_COOKIE_NAME"] = "refresh_token"
+    app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(minutes=20)
+    app.config["JWT_REFRESH_TOKEN_EXPIRES"] = timedelta(minutes=60)
+    app.config["JWT_COOKIE_SECURE"] = False
+    app.config["JWT_COOKIE_CSRF_PROTECT"] = False
 
     jwt = JWTManager(app)
 
@@ -60,10 +65,22 @@ def create_app():
 
     @jwt.expired_token_loader
     def expired_token_callback(jwt_header, jwt_payload):
-        return (
-            jsonify({"message": "The token has expired.", "error": "token_expired"}),
-            401,
-        )
+        """
+            Callback function for expired tokens.
+            Checks the token type and returns a specific message.
+        """
+        token_type = jwt_payload.get('type', 'unknown') # 'type' claim is added by flask_jwt_extended
+
+        if token_type == 'access':
+            return jsonify(
+                code="token_expired", # Custom error code
+                error="Access token has expired."
+                ), 401 # Use 401 Unauthorized status code
+        elif token_type == 'refresh':
+            return jsonify(
+                code="token_expired",
+                error="Refresh token has expired."
+                ), 401
 
     @jwt.invalid_token_loader
     def invalid_token_callback(error):
@@ -80,7 +97,6 @@ def create_app():
 
     @jwt.unauthorized_loader
     def missing_token_callback(error):
-        #  should lead to the login page
         return (
             jsonify(
                 {

@@ -92,9 +92,12 @@ class Me(MethodView):
 class isAuthenticated(MethodView):
     def get(self):
         access_token = request.cookies.get('access_token')
+        refresh_token = request.cookies.get('refresh_token')
 
         if access_token:
             return jsonify({"message": "User is authenticated"}), 200
+        elif refresh_token:
+            return jsonify({"message": "User is authenticated with refresh token"}), 200
         else:
             return jsonify({"message": "User is not authenticated"}), 401
 
@@ -112,8 +115,10 @@ class UserLogin(MethodView):
 
             # Set cookies with HTTPOnly, Secure and SameSite flags
             response = jsonify({"message": "Login successful"})
-            response.set_cookie("access_token", access_token, httponly=True, samesite='Strict', max_age=3600, domain='127.0.0.1:4200')
-            response.set_cookie("refresh_token", refresh_token, httponly=True, samesite='Strict', max_age=86400, domain='127.0.0.1:4200')
+             #remove access token cookie after 30 minutes
+            response.set_cookie("access_token", access_token, httponly=True, samesite='Strict', max_age=3600, domain='127.0.0.1')
+            #remove refresh token cookie after 45 minutes
+            response.set_cookie("refresh_token", refresh_token, httponly=True, samesite='Strict', max_age=3600, domain='127.0.0.1')
             return response, 200
 
         abort(401, message="Invalid credentials")
@@ -128,8 +133,8 @@ class UserLogout(MethodView):
 
         response = jsonify({"message": "Logged out successfully"})
         # Delete cookies by setting their expiration date to a past date
-        response.set_cookie("access_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1:4200')
-        response.set_cookie("refresh_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1:4200')
+        response.set_cookie("access_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1')
+        response.set_cookie("refresh_token", "", expires=0, httponly=True, samesite='Strict', domain='127.0.0.1')
         return response, 200
 
 
@@ -144,5 +149,5 @@ class TokenRefresh(MethodView):
         BLOCKLIST.add(jti)
 
         response = jsonify({"access_token": new_access_token})
-        response.set_cookie("access_token", new_access_token, httponly=True, samesite='Strict', max_age=3600, domain='127.0.0.1:4200')
+        response.set_cookie("access_token", new_access_token, httponly=True, samesite='Strict', max_age=1500, domain='127.0.0.1')
         return response, 200
