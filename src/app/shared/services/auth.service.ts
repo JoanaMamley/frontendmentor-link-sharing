@@ -10,8 +10,6 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  private _isLoggedIn: boolean = false;
-
   constructor(private http: HttpClient) {}
 
   login(credentials: AuthRequest): Promise<GenericResponse> {
@@ -28,13 +26,5 @@ export class AuthService {
 
   isAuthenticated(): Observable<GenericResponse> {
     return this.http.get<GenericResponse>(`${environment.apiUrl}/isAuthenticated`, { withCredentials: true });
-  }
-
-  set isLoggedIn(value: boolean) {
-    this._isLoggedIn = value;
-  }
-
-  get isLoggedIn(): boolean {
-    return this._isLoggedIn;
   }
 }

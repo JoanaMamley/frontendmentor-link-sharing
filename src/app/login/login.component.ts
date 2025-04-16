@@ -37,14 +37,12 @@ export class LoginComponent implements OnInit, OnDestroy {
         email: this.loginForm?.value.email,
         password: this.loginForm?.value.password
       }).catch(err => {
-        this.authService.isLoggedIn = false;
         this.loginError = err.error.message;
         console.error(err);
       })
 
       if (res && res.message === 'Login successful') {
         this.loginError = null;
-        this.authService.isLoggedIn = true;
         this.router.navigateByUrl('/home');
       }
     }
