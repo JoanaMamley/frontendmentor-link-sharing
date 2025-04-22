@@ -2,16 +2,17 @@
     <h2>Customize your links</h2>
     <p>Add/edit/remove links and then share all your profile with the world!</p>
     <button class="mt-4 mb-3 light-button">+ Add new link</button>
-    <div class="empty-img-content mt-1 mb-5">
+    <!-- <div class="empty-img-content mt-1 mb-5">
         <div class="empty-img-items">
             <img src="images/illustration-empty.svg" alt="">
             <h2 class="mt-4">Let's get you started</h2>
-            <p class="empty-img-paragraph mt-4">
+            <p class="empty-img-paragraph mt-4" *ngIf="hasNoLinks">
                 User the "Add new link" button to get started. Once you have more than one link you can reorder and edit them.
                 We're here to help you share your profiles with everyone!
             </p>
         </div>
-    </div>
-    <hr>
-    <button class="dark-button" [disabled]="true" [ngClass]="{'disabled-button': true}">Save</button>
+    </div> -->
+    <link-item ></link-item>
+    <!-- <hr>
+    <button class="dark-button" [disabled]="true" [ngClass]="{'disabled-button': true}">Save</button> -->
 </div>

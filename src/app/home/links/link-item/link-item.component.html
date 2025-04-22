@@ -1,0 +1,40 @@
+<div class="link-item">
+    <div class="link-top d-flex justify-content-between align-items-center">
+        <h5>Link #1</h5>
+        <div class="ops-icons">
+            <i class="fa fa-trash me-2" aria-hidden="true"></i>
+            <i class="fa fa-save"></i>
+        </div>
+    </div>
+    <form class="link-form">
+        <div class="mb-3">
+            <label for="link-type" class="mb-2">Platform*</label>
+            <div class="">
+                <select class="form-select" aria-label="Default select example">
+                    <option selected></option>
+                    <option [value]="linkType.key" *ngFor="let linkType of linkTypes | keyvalue">
+                        <span>{{ linkType.value.name }}</span>
+                    </option>
+                </select>
+                <!-- <span class="error-message">Can't be empty</span> -->
+                <!--TODO:  REVISIT ADDITION OF ICONS TO EACH SELECT LINK ITEM -->
+                <!-- <mat-form-field class="mt-3">
+                    <mat-label>Select an option</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let linkType of linkTypes | keyvalue" [value]="linkType.key">
+                        <mat-icon [svgIcon]="linkType.key" aria-hidden="false" aria-label="Example thumbs up SVG icon"></mat-icon>
+                        {{ linkType.value.name }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+            </div>
+        </div>
+        <div class="">
+            <label for="link-url" class="mb-2">Link*</label>
+            <div class="">
+                <input type="text" class="form-control" id="link-url" formControlName="linkUrl">
+                <!-- <span class="error-message">Can't be empty</span> -->
+            </div>
+        </div>
+    </form>
+</div>
