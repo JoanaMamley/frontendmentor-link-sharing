@@ -14,6 +14,8 @@ from flask_cors import CORS
 load_dotenv()  # This loads .env variables into os.environ
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
+UPLOAD_FOLDER = 'uploads'
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 def create_app():
     app = Flask(__name__)
@@ -30,6 +32,7 @@ def create_app():
     app.config[
         "OPENAPI_SWAGGER_UI_URL"
     ] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     username = os.environ.get("DB_USERNAME")
     password = os.environ.get("DB_PASSWORD")

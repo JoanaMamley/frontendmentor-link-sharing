@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify, request, current_app, send_file
 from flask.views import MethodView
 from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt, get_jwt_identity, jwt_required
 from flask_smorest import Blueprint, abort
@@ -7,6 +7,9 @@ from models import UserModel
 from passlib.hash import pbkdf2_sha256
 from db import db
 from blocklist import BLOCKLIST
+from werkzeug.utils import secure_filename
+import os
+import uuid
 
 
 blp = Blueprint("Users", "users", description="Operations on users")
@@ -77,6 +80,51 @@ class User(MethodView):
         db.session.commit()
 
         return user
+
+@blp.route("/upload-image", methods=["POST"])
+class UploadImage(MethodView):
+    @jwt_required()
+    def post(self):
+        user_id = get_jwt_identity()
+        user = UserModel.query.get_or_404(user_id)
+
+        if 'file' not in request.files:
+            abort(400, message="No file part in the request.")
+
+        file = request.files['file']
+        if file.filename == '':
+            abort(400, message="No selected file.")
+
+        filename = secure_filename(file.filename)
+        ext = os.path.splitext(filename)[1]
+        unique_filename = f"{uuid.uuid4().hex}{ext}"
+        upload_path = os.path.join(current_app.config['UPLOAD_FOLDER'], unique_filename)
+
+        # Delete old file if it exists
+        if user.image_path:
+            old_path = os.path.join(current_app.config['UPLOAD_FOLDER'], os.path.basename(user.image_path))
+            if os.path.exists(old_path):
+                os.remove(old_path)
+
+        # Save new file
+        file.save(upload_path)
+        user.image_path = upload_path
+
+        db.session.commit()
+
+        return jsonify({"message": "Image uploaded successfully.", "path": upload_path}), 200
+
+@blp.route("/user/<int:user_id>/image", methods=["GET"])
+class GetUserImage(MethodView):
+    @jwt_required()
+    def get(self, user_id):
+        user = UserModel.query.get_or_404(user_id)
+
+        if not user.image_path or not os.path.exists(user.image_path):
+            abort(404, message="User image not found.")
+
+        return send_file(user.image_path, mimetype='image/jpeg')
+
 
 @blp.route("user/me", methods=["GET"])
 class Me(MethodView):
