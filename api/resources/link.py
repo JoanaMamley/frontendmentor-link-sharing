@@ -1,7 +1,7 @@
 from flask.views import MethodView
-from flask_jwt_extended import get_jwt, jwt_required
+from flask_jwt_extended import get_jwt, get_jwt_identity, jwt_required
 from flask_smorest import Blueprint, abort
-from schemas import LinkSchema, LinkUpdateSchema
+from schemas import LinkSchema, LinkUpdateSchema, PlainLinkSchema
 from models import LinkModel
 from db import db
 from sqlalchemy.exc import SQLAlchemyError
@@ -46,10 +46,11 @@ class Link(MethodView):
 @blp.route("/link", methods=["POST"])
 class LinkList(MethodView):
     @jwt_required(fresh=True)
-    @blp.arguments(LinkSchema)
+    @blp.arguments(PlainLinkSchema)
     @blp.response(201, LinkSchema)
     def post(self, link_data):
-        link = LinkModel(**link_data)
+        current_user = get_jwt_identity()
+        link = LinkModel(**link_data, user_id=current_user)
 
         try:
             db.session.add(link)
