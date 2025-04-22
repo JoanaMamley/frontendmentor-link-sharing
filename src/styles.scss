@@ -108,9 +108,11 @@ input:focus, input:hover, input:active {
     outline-width: 0px;
 }
 
-input.ng-invalid.ng-touched, .input-error, input.ng-invalid.ng-touched:active, input.ng-invalid.ng-touched:hover, input.ng-invalid.ng-touched:focus {
+input.ng-invalid.ng-touched, .input-error, input.ng-invalid.ng-touched:active, input.ng-invalid.ng-touched:hover, input.ng-invalid.ng-touched:focus,
+select.ng-invalid.ng-touched, select.ng-invalid.ng-touched:active, select.ng-invalid.ng-touched:hover, select.ng-invalid.ng-touched:focus 
+{
     border: 1px solid red;
-    box-shadow: 0 0 8pt 5pt  #EFEBFF;
+    box-shadow: 0 0 8pt 5pt  rgb(244, 221, 225);
 }
 
 .error-label {
