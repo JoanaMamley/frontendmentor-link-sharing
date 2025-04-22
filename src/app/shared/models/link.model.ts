@@ -1,7 +1,18 @@
+import { User } from "./user.model";
+
 export interface Link {
   id: number;
   link_type: string;
   link_url: string;
+  isEditing?: boolean;
+}
+
+export interface RawLinkItem {
+  id: number;
+  link_type: string;
+  link_url: string;
+  user_id: number;
+  user: User
 }
 
 export const LINKDETAILS: Record<string, LinkDesc> = {

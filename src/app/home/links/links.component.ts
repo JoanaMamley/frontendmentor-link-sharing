@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../shared/models/user.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Link } from '../../shared/models/link.model';
 import { LinkItemComponent } from './link-item/link-item.component';
+import { LinkService } from '../../shared/services/link.service';
 
 @Component({
   selector: 'app-links',
@@ -15,24 +16,28 @@ import { LinkItemComponent } from './link-item/link-item.component';
   styleUrl: './links.component.scss'
 })
 export class LinksComponent implements OnInit {
-  user?: User;
-  newLink?: Link;
   subscriptions: Subscription[] = [];
+  links$?: Observable<Link[]>;
+  links: Link[] = [];
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar) { }
+  constructor(private linkService: LinkService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    const sub = this.userService.currentUser$.subscribe(user => {
-      if (user) {
-        this.user = user;
-      }
+    this.linkService.links$.subscribe(links => {
+      this.links = links;
     });
-
-    this.subscriptions.push(sub);
   }
 
   get hasNoLinks(): boolean {
-    return (!this.user?.links || this.user.links.length === 0) && !this.newLink;
+    return (!this.links || this.links.length === 0);
+  }
+
+  addNewLink(): void {
+    this.linkService.addNewLink();
+  }
+
+  saveItem(link: Link) {
+    this.linkService.saveLink({...link});
   }
 
 }
