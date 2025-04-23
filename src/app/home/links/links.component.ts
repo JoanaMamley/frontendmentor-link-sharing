@@ -4,7 +4,7 @@ import { UserService } from '../../shared/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../shared/models/user.model';
 import { Observable, Subscription } from 'rxjs';
-import { Link } from '../../shared/models/link.model';
+import { Link, LinkBasicInfo } from '../../shared/models/link.model';
 import { LinkItemComponent } from './link-item/link-item.component';
 import { LinkService } from '../../shared/services/link.service';
 
@@ -36,8 +36,9 @@ export class LinksComponent implements OnInit {
     this.linkService.addNewLink();
   }
 
-  saveItem(link: Link) {
-    this.linkService.saveLink({...link});
+  saveItem(link: LinkBasicInfo) {
+    console.log('Saving link:', link);
+    this.linkService.saveLink(link);
   }
 
 }

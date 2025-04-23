@@ -7,6 +7,8 @@ export interface Link {
   isEditing?: boolean;
 }
 
+export type LinkBasicInfo = Pick<Link, 'link_type' | 'link_url'>; 
+
 export interface RawLinkItem {
   id: number;
   link_type: string;

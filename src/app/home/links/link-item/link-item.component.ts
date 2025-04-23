@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Link, LINKDETAILS, LinkSGVDesc } from '../../../shared/models/link.model';
+import { Link, LinkBasicInfo, LINKDETAILS, LinkSGVDesc } from '../../../shared/models/link.model';
 import { CommonModule } from '@angular/common';
 import { LINKTYPEICONSVGS } from '../../../shared/icon-svgs';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -15,7 +15,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 export class LinkItemComponent{
   @Input() link!: Link;
   @Input() linkNumber!: number;
-  @Output() save = new EventEmitter<Link>();
+  @Output() save = new EventEmitter<LinkBasicInfo>();
   linkForm?: FormGroup;
 
   linkTypes = LINKDETAILS;
@@ -31,7 +31,8 @@ export class LinkItemComponent{
         panelClass: ['snackbar-error']
       });
     } else {
-      this.save.emit({ ...this.link, isEditing: false });
+      this.save.emit({ link_type: this.linkForm?.get('linkType')?.value, link_url: this.linkForm?.get('linkUrl')?.value });
+      this.linkForm?.reset();
     }
   }
 
