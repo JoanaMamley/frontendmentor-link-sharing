@@ -1,22 +1,23 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Link, LinkBasicInfo, LINKDETAILS, LinkSGVDesc } from '../../../shared/models/link.model';
+import { Link, LinkBasicInfo, LINKDETAILS, LinkOptionDetail } from '../../../shared/models/link.model';
 import { CommonModule } from '@angular/common';
-import { LINKTYPEICONSVGS } from '../../../shared/icon-svgs';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { DropdownModule } from 'primeng/dropdown';
 
 @Component({
   selector: 'link-item',
   standalone: true,
-  imports: [CommonModule, MatSnackBarModule, ReactiveFormsModule],
+  imports: [CommonModule, MatSnackBarModule, ReactiveFormsModule, DropdownModule],
   templateUrl: './link-item.component.html',
   styleUrl: './link-item.component.scss'
 })
-export class LinkItemComponent{
+export class LinkItemComponent implements OnInit {
   @Input() link!: Link;
   @Input() linkNumber!: number;
   @Output() save = new EventEmitter<LinkBasicInfo>();
   linkForm?: FormGroup;
+  currentLinkType?: string;
 
   linkTypes = LINKDETAILS;
 
@@ -37,9 +38,17 @@ export class LinkItemComponent{
   }
 
   ngOnInit(): void {
+    this.currentLinkType = this.link.link_type;
+
     this.linkForm = new FormGroup({
       'linkType': new FormControl(this.link.link_type, [Validators.required]),
       'linkUrl': new FormControl(this.link.link_url, [Validators.required])
+    });
+
+    this.linkForm?.get('linkType')?.valueChanges.subscribe((value) => {
+      this.link.link_type = value;
+      const linkDetails = this.fetchLinkDetails(value);
+      console.log('Link details:', linkDetails);
     });
   }
 
@@ -49,5 +58,14 @@ export class LinkItemComponent{
 
   get linkUrl(): AbstractControl<any, any> | null | undefined {
       return this.linkForm?.get('linkUrl');
+  }
+
+  get linkOptions(): string[] {
+    return Object.keys(this.linkTypes).map((key) => (
+      key));
+  }
+
+  fetchLinkDetails(linkType: string): LinkOptionDetail {
+    return this.linkTypes[linkType];
   }
 }

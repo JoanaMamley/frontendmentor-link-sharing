@@ -9,14 +9,29 @@
     <form class="link-form" *ngIf="linkForm" [formGroup]="linkForm!">
         <div class="mb-3">
             <label for="link-type" class="mb-2" [ngClass]="{'error-label': linkType?.invalid && (linkType?.touched || linkType?.dirty)}">Platform*</label>
-            <div class="">
-                <select class="form-select" id="link-type" aria-label="Default select example" formControlName="linkType">
-                    <option selected></option>
-                    <option [value]="linkType.key" *ngFor="let linkType of linkTypes | keyvalue">
-                        <!--TODO:  ADDITION OF ICONS TO EACH SELECT LINK ITEM -->
-                        <span>{{ linkType.value.name }}</span>
-                    </option>
-                </select>
+            <div class="select-link-type row">
+                <p-dropdown
+                    [options]="linkOptions"
+                    formControlName="linkType"
+                    class="link-dropdown col-sm-12 row"
+                    [ngClass]="{'error-label': linkType?.invalid && (linkType?.touched || linkType?.dirty)}"
+                    optionLabel="name"
+                    placeholder="Select a link type">
+                        <ng-template pTemplate="selectedItem" let-selected>
+                            <div class="flex">
+                                <img [src]="fetchLinkDetails(selected).icon" class="link-type-item-icon me-2"/>
+                                <span>{{ fetchLinkDetails(selected).name }}</span>
+                            </div>
+                        </ng-template>
+                        <ng-template let-linkOptionType pTemplate="item" class="col-sm-12">
+                            <div class="flex">
+                                <img
+                                    [src]="fetchLinkDetails(linkOptionType).icon"
+                                    class="link-type-item-icon me-2"/>
+                                <span>{{ fetchLinkDetails(linkOptionType).name }}</span>
+                            </div>
+                        </ng-template>
+                </p-dropdown>
                 <span class="error-message" *ngIf="linkType?.invalid && (linkType?.touched || linkType?.dirty) && linkType?.hasError('required')">Can't be empty</span>
             </div>
         </div>

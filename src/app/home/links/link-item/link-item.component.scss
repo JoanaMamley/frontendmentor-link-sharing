@@ -9,3 +9,15 @@ i {
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+.select-link-type {
+    // width: 100%;
+    display: flex;
+    justify-content: center;
+    // border: 2px solid yellow;
+}
+
+::ng-deep .error-label .p-dropdown {
+    border: 1px solid red !important;
+    box-shadow: 0 0 8pt 5pt  rgb(244, 221, 225);
+}
