@@ -37,8 +37,11 @@
         </div>
         <div class="">
             <label for="link-url" class="mb-2" [ngClass]="{'error-label': linkUrl?.invalid && (linkUrl?.touched || linkUrl?.dirty)}">Link*</label>
-            <div class="">
-                <input type="text" class="form-control" id="link-url" formControlName="linkUrl">
+            <div class="link-url-input row">
+                <p-iconField iconPosition="left" class="col-sm-12">
+                    <p-inputIcon styleClass="pi pi-link" />
+                    <input type="text" pInputText placeholder="Search" formControlName="linkUrl" class="link-url-text col-sm-12"/>
+                </p-iconField>
                 <span class="error-message" *ngIf="linkUrl?.invalid && (linkUrl?.touched || linkUrl?.dirty) && linkUrl?.hasError('required')">Can't be empty</span>
             </div>
         </div>

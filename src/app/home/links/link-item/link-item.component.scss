@@ -10,11 +10,9 @@ i {
     cursor: pointer;
 }
 
-.select-link-type {
-    // width: 100%;
+.select-link-type, .link-url-input {
     display: flex;
     justify-content: center;
-    // border: 2px solid yellow;
 }
 
 ::ng-deep .error-label .p-dropdown {

@@ -4,11 +4,14 @@ import { CommonModule } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DropdownModule } from 'primeng/dropdown';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'link-item',
   standalone: true,
-  imports: [CommonModule, MatSnackBarModule, ReactiveFormsModule, DropdownModule],
+  imports: [CommonModule, MatSnackBarModule, ReactiveFormsModule, DropdownModule , IconFieldModule, InputIconModule, InputTextModule],
   templateUrl: './link-item.component.html',
   styleUrl: './link-item.component.scss'
 })
