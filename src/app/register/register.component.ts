@@ -4,11 +4,15 @@ import { AbstractControl, FormArray, FormControl, FormGroup, ReactiveFormsModule
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../shared/services/user.service';
 import { Subscription } from 'rxjs';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, IconFieldModule, InputIconModule, InputTextModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -47,13 +51,21 @@ export class RegisterComponent implements OnInit, OnDestroy{
 
   async onSubmit() {
     if (this.signUpForm?.valid) {
-       await this.userService.register({
-        email: this.signUpForm?.get('email')?.value,
-        password: this.signUpForm?.get('password')?.value
-      }).catch((error) => {
-        this.registrationError = error.error.message;
-      });
-      this.router.navigate(['/login']);
+      try {
+        await this.userService.register({
+          email: this.signUpForm?.get('email')?.value,
+          password: this.signUpForm?.get('password')?.value
+        })
+        this.router.navigate(['/login']);
+      }
+      catch(error) {
+        if (error instanceof HttpErrorResponse) {
+          this.registrationError = error.error.message;
+        }
+        else {
+          this.registrationError = 'An unexpected error occurred. Please try again later.';
+        }
+      }
     }
   }
 

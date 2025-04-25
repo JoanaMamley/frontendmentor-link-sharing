@@ -54,21 +54,6 @@ app-root {
     flex-direction: column;
 }
 
-.email {
-    background: url('../public/images/icon-email.svg') no-repeat scroll 10px 10px;
-    padding-left:30px;
-}
-
-.password {
-    background: url('../public/images/icon-password.svg') no-repeat scroll 10px 10px;
-    padding-left:30px;
-}
-
-::placeholder {
-    opacity: 0.2; 
-    padding-left: 10px;
-}
-
 .dark-button {
     background: #633CFF;
     border: 2px solid #633CFF;
@@ -100,6 +85,11 @@ a {
 
 a, input {
     cursor: pointer;
+}
+
+.icon-input-group  {
+    display: flex;
+    justify-content: center;
 }
 
 input:focus, input:hover, input:active {
