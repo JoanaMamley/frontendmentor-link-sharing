@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { User } from '../../shared/models/user.model';
@@ -15,17 +15,22 @@ import { LinkService } from '../../shared/services/link.service';
   templateUrl: './links.component.html',
   styleUrl: './links.component.scss'
 })
-export class LinksComponent implements OnInit {
+export class LinksComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
-  links$?: Observable<Link[]>;
   links: Link[] = [];
 
   constructor(private linkService: LinkService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-    this.linkService.links$.subscribe(links => {
+    const sub = this.linkService.links$.subscribe(links => {
       this.links = links;
     });
+
+    this.subscriptions.push(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   get hasNoLinks(): boolean {
@@ -36,9 +41,22 @@ export class LinksComponent implements OnInit {
     this.linkService.addNewLink();
   }
 
-  saveItem(link: LinkBasicInfo) {
-    console.log('Saving link:', link);
-    this.linkService.saveLink(link);
+  saveLink(link: LinkBasicInfo) {
+    const sub = this.linkService.saveLink(link).subscribe({
+      next: (message) => {
+        this.snackBar.open(message, 'Close', {
+          duration: 2000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: (error) => {
+        this.snackBar.open('Failed to save link', 'Close', {
+          duration: 2000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
+    this.subscriptions.push(sub);
   }
 
 }

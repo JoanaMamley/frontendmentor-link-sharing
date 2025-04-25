@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="link-item" *ngIf="!hasNoLinks">
-        <link-item [link]="link" (save)="saveItem($event)" [linkNumber]="i+1" *ngFor="let link of links; let i = index"></link-item>
+        <link-item [link]="link" (save)="saveLink($event)" [linkNumber]="i+1" *ngFor="let link of links; let i = index"></link-item>
     </div>
     <!-- <hr>
     <button class="dark-button" [disabled]="true" [ngClass]="{'disabled-button': true}">Save</button> -->
