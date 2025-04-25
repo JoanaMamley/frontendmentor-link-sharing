@@ -18,11 +18,13 @@ export class LinkService {
   }
 
   private loadSavedLinks() {
-    this.userService.getCurrentUser()
+    this.userService.currentUser$
       .pipe(takeUntil(this.destroy$))
       .subscribe(user => {
-        const savedLinks = user.links.map(link => ({ ...link, isEditing: false }));
-        this.linksSubject.next(savedLinks);
+        if (user) {
+          const savedLinks = user.links.map(link => ({ ...link, isEditing: false }));
+          this.linksSubject.next(savedLinks);
+        }
     });
   }
 
