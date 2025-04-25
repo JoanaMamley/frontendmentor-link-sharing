@@ -60,4 +60,41 @@ export class LinkService {
       );
   }
 
+  deleteLink(linkId: number): Observable<string> {
+    return this.http.delete(`${environment.apiUrl}/link/${linkId}`, { withCredentials: true })
+      .pipe(
+        takeUntil(this.destroy$),
+        map(() => {
+          const currentLinks = this.linksSubject.getValue();
+          const updatedLinks = currentLinks.filter(link => link.id !== linkId);
+          this.linksSubject.next(updatedLinks);
+          return 'Link deleted successfully';
+        }),
+        catchError(error => {
+          console.error('Failed to delete link:', error);
+          return of('Failed to delete link');
+        })
+      );
+  }
+
+  updateLink(linkId: number, updatedLink: LinkBasicInfo): Observable<string> {
+    return this.http.put(`${environment.apiUrl}/link/${linkId}`, updatedLink, { withCredentials: true })
+      .pipe(
+        takeUntil(this.destroy$),
+        map(() => {
+          const currentLinks = this.linksSubject.getValue();
+          const linkIndex = currentLinks.findIndex(link => link.id === linkId);
+          if (linkIndex !== -1) {
+            currentLinks[linkIndex] = { ...currentLinks[linkIndex], ...updatedLink };
+            this.linksSubject.next(currentLinks);
+          }
+          return 'Link updated successfully';
+        }),
+        catchError(error => {
+          console.error('Failed to update link:', error);
+          return of('Failed to update link');
+        })
+      );
+  }
+
 }
