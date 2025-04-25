@@ -59,4 +59,40 @@ export class LinksComponent implements OnInit, OnDestroy {
     this.subscriptions.push(sub);
   }
 
+  updateLink($event: LinkBasicInfo, id: number) {
+    const sub = this.linkService.updateLink(id, $event).subscribe({
+      next: (message) => {
+        this.snackBar.open(message, 'Close', {
+          duration: 2000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: (error) => {
+        this.snackBar.open('Failed to update link', 'Close', {
+          duration: 2000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
+    this.subscriptions.push(sub);
+  }
+
+  deleteLink($event: number) {
+    const sub = this.linkService.deleteLink($event).subscribe({
+      next: (message) => {
+        this.snackBar.open(message, 'Close', {
+          duration: 2000,
+          panelClass: ['snackbar-success']
+        });
+      },
+      error: (error) => {
+        this.snackBar.open('Failed to delete link', 'Close', {
+          duration: 2000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
+    this.subscriptions.push(sub);
+  }
+
 }

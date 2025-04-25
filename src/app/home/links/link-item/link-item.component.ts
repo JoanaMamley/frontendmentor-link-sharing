@@ -19,6 +19,8 @@ export class LinkItemComponent implements OnInit {
   @Input() link!: Link;
   @Input() linkNumber!: number;
   @Output() save = new EventEmitter<LinkBasicInfo>();
+  @Output() update = new EventEmitter<LinkBasicInfo>();
+  @Output() delete = new EventEmitter<number>();
   linkForm?: FormGroup;
   currentLinkType?: string;
 
@@ -26,6 +28,14 @@ export class LinkItemComponent implements OnInit {
 
   constructor(private snackBar: MatSnackBar) {}
 
+  ngOnInit(): void {
+    this.currentLinkType = this.link.link_type;
+
+    this.linkForm = new FormGroup({
+      'linkType': new FormControl(this.link.link_type, [Validators.required]),
+      'linkUrl': new FormControl(this.link.link_url, [Validators.required])
+    });
+  }
 
   saveLink() {
     if (this.linkForm?.invalid) {
@@ -35,24 +45,18 @@ export class LinkItemComponent implements OnInit {
         panelClass: ['snackbar-error']
       });
     } else {
-      this.save.emit({ link_type: this.linkForm?.get('linkType')?.value, link_url: this.linkForm?.get('linkUrl')?.value });
+      if (this.link.id === -1) {
+        this.save.emit({ link_type: this.linkForm?.get('linkType')?.value, link_url: this.linkForm?.get('linkUrl')?.value });
+      }
+      else {
+        this.update.emit({ link_type: this.linkForm?.get('linkType')?.value, link_url: this.linkForm?.get('linkUrl')?.value });
+      }
       this.linkForm?.reset();
     }
   }
 
-  ngOnInit(): void {
-    this.currentLinkType = this.link.link_type;
-
-    this.linkForm = new FormGroup({
-      'linkType': new FormControl(this.link.link_type, [Validators.required]),
-      'linkUrl': new FormControl(this.link.link_url, [Validators.required])
-    });
-
-    this.linkForm?.get('linkType')?.valueChanges.subscribe((value) => {
-      this.link.link_type = value;
-      const linkDetails = this.fetchLinkDetails(value);
-      console.log('Link details:', linkDetails);
-    });
+  deleteLink() {
+    this.delete.emit(this.link.id);
   }
 
   get linkType(): AbstractControl<any, any> | null | undefined {
