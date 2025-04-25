@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from '../../shared/models/user.model';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Link, LinkBasicInfo } from '../../shared/models/link.model';
 import { LinkItemComponent } from './link-item/link-item.component';
 import { LinkService } from '../../shared/services/link.service';
