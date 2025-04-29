@@ -13,6 +13,11 @@ i {
 .select-link-type, .link-url-input {
     display: flex;
     justify-content: center;
+    width: 100%;
+}
+
+.link-url-text {
+    width: 100%;
 }
 
 ::ng-deep .error-label .p-dropdown {

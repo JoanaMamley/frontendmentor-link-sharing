@@ -47,6 +47,13 @@ phone-mockup {
         display: none;
     }
 
+    .full-page {
+        width: 100%;
+        overflow-y: auto;
+        height: 100vh;
+        border: 2px solid red;
+    }
+
     .lower-section {
         width: 100%;
         margin: 0;
@@ -56,5 +63,6 @@ phone-mockup {
         width: 100%;
         padding: 1rem;
         margin: 0;
+        height: 88vh;
     }
 }
