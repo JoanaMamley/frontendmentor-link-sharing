@@ -5,15 +5,18 @@
         </div>
         <div class="auth-form">
             <div class="auth-form-center">
-                <h3>Login</h3>
-                <p>Add your details below to get back into the app</p>
+                <div class="title-small">
+                    <img src="images/logo-devlinks-large.svg" alt="">
+                </div>
+                <h3 class="auth-title">Login</h3>
+                <p class="auth-desc">Add your details below to get back into the app</p>
                 <form class="auth-form-items" [formGroup]="loginForm!" (ngSubmit)="onSubmit()">
                     <div class="form-group mb-3">
                         <label for="exampleInputEmail1" [ngClass]="{'error-label': (email?.invalid && (email?.touched || email?.dirty)) || loginError}">Email address</label>
                         <div class="icon-input-group row">
                             <p-iconField iconPosition="left" class="col-sm-12">
                                 <p-inputIcon styleClass="pi pi-envelope" />
-                                <input type="text" id="exampleInputEmail1" pInputText placeholder="e.g alex@gmail.com" formControlName="email" class="col-sm-12" [ngClass]="{'input-error': loginError}"/>
+                                <input type="text" id="exampleInputEmail1" pInputText placeholder="e.g alex@gmail.com" formControlName="email" class="auth-input col-sm-12" [ngClass]="{'input-error': loginError}"/>
                             </p-iconField>
                             <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('required')" class="error-message">Can't be empty</span>
                             <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('email')" class="error-message">Not a valid email</span>
@@ -24,7 +27,7 @@
                         <div class="icon-input-group row">
                             <p-iconField iconPosition="left" class="col-sm-12">
                                 <p-inputIcon styleClass="pi pi-lock" />
-                                <input type="password" class="col-sm-12" pInputText id="exampleInputPassword1" formControlName="password" placeholder="At least 8 characters" [ngClass]="{'input-error': loginError}">
+                                <input type="password" class="auth-input col-sm-12" pInputText id="exampleInputPassword1" formControlName="password" placeholder="At least 8 characters" [ngClass]="{'input-error': loginError}">
                             </p-iconField>
                             <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('required')" class="error-message">Can't be empty</span>
                             <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('minlength')" class="error-message">Password must have 8 characters</span>
@@ -32,7 +35,7 @@
                     </div>
 
                     <span class="mb-3 error-message fs-6" *ngIf="loginError">{{ loginError }}</span>
-                    <button class="mb-3 dark-button" [disabled]="loginForm?.invalid" [ngClass]="{'disabled-button': loginForm?.invalid}">Login</button>
+                    <button class="mb-3 auth-btn dark-button" [disabled]="loginForm?.invalid" [ngClass]="{'disabled-button': loginForm?.invalid}">Login</button>
                     <p class="text-center">Don't have an account? <a class="dark-text" routerLink="/register">Create account</a></p>
                 </form>
             </div>

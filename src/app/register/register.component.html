@@ -6,8 +6,11 @@
 
         <div class="auth-form">
             <div class="auth-form-center">
-                <h3>Create account</h3>
-                <p>Let's get you started sharing your links!</p>
+                <div class="title-small">
+                    <img src="images/logo-devlinks-large.svg" alt="">
+                </div>
+                <h3 class="auth-title">Create account</h3>
+                <p class="auth-desc">Let's get you started sharing your links!</p>
 
                 <form class="auth-form-items" [formGroup]="signUpForm!" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
@@ -15,7 +18,7 @@
                         <div class="icon-input-group row">
                             <p-iconField iconPosition="left" class="col-sm-12">
                                 <p-inputIcon styleClass="pi pi-envelope" />
-                                <input type="text" id="exampleInputEmail1" pInputText placeholder="e.g alex@gmail.com" formControlName="email" class="col-sm-12" [ngClass]="{'input-error': registrationError}"/>
+                                <input type="text" id="exampleInputEmail1" pInputText placeholder="e.g alex@gmail.com" formControlName="email" class="auth-input col-sm-12" [ngClass]="{'input-error': registrationError}"/>
                             </p-iconField>
                             <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('required')" class="error-message">Can't be empty</span>
                             <span *ngIf="email?.invalid && (email?.touched || email?.dirty) && email?.hasError('email')" class="error-message">Not a valid email</span>
@@ -27,7 +30,7 @@
                         <div class="icon-input-group row">
                             <p-iconField iconPosition="left" class="col-sm-12">
                                 <p-inputIcon styleClass="pi pi-lock" />
-                                <input type="password" class="col-sm-12" pInputText id="exampleInputPassword1" formControlName="password" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError || registrationError}">
+                                <input type="password" class="auth-input col-sm-12" pInputText id="exampleInputPassword1" formControlName="password" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError || registrationError}">
                             </p-iconField>
                             <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('required')" class="error-message">Can't be empty</span>
                             <span *ngIf="password?.invalid && (password?.touched || password?.dirty) && password?.hasError('minlength')" class="error-message">Password must have 8 characters</span>
@@ -39,7 +42,7 @@
                         <div class="icon-input-group row">
                             <p-iconField iconPosition="left" class="col-sm-12">
                                 <p-inputIcon styleClass="pi pi-lock" />
-                                <input type="password" class="col-sm-12" pInputText id="exampleInputPassword2" formControlName="confirmPassword" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError || registrationError}">
+                                <input type="password" class="auth-input col-sm-12" pInputText id="exampleInputPassword2" formControlName="confirmPassword" placeholder="At least 8 characters" [ngClass]="{'input-error': hasPasswordMismatchError || registrationError}">
                             </p-iconField>
                             <span *ngIf="confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty) && confirmPassword?.hasError('required')" class="error-message">Can't be empty</span>
                             <span *ngIf="confirmPassword?.invalid && (confirmPassword?.touched || confirmPassword?.dirty) && confirmPassword?.hasError('minlength')" class="error-message">Password must have 8 characters</span>
@@ -48,7 +51,7 @@
                     </div>
 
                     <span class="mb-3 error-message fs-6" *ngIf="registrationError">{{ registrationError }}</span>
-                    <button class="mb-3 dark-button" [disabled]="signUpForm?.invalid" [ngClass]="{'disabled-button': signUpForm?.invalid}">Create new account</button>
+                    <button class="mb-3 auth-btn dark-button" [disabled]="signUpForm?.invalid" [ngClass]="{'disabled-button': signUpForm?.invalid}">Create new account</button>
                     <p class="text-center">Already have an account? <a class="dark-text" routerLink="/login">Login</a></p>
                 </form>
             </div>
