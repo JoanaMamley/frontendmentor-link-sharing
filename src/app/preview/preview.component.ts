@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LINKDETAILS } from '../shared/models/link.model';
+import { Router } from '@angular/router';
 
 interface LinkDesc{
   name: string;
@@ -17,7 +18,13 @@ interface LinkDesc{
 export class PreviewComponent {
   linkItems: LinkDesc[] = [LINKDETAILS['github'], LINKDETAILS['youtube'], LINKDETAILS['linkedIn']];
 
+  constructor(private router: Router){}
+
   getlinkIcon(linkType: LinkDesc): string {
     return `images/${linkType.icon}`;
+  }
+
+  navigateToEditor() {
+    this.router.navigateByUrl('/home');
   }
 }
