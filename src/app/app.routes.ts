@@ -33,7 +33,7 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
       },
       {
-        path: 'preview',
+        path: 'preview/:id',
         component: PreviewComponent,
       },
       { path: '',   redirectTo: '/login', pathMatch: 'full' }, 

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { lastValueFrom } from 'rxjs';
@@ -12,6 +12,8 @@ import { lastValueFrom } from 'rxjs';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+  @Input() userId?: number;
+  
   constructor(private authService: AuthService, private router: Router) {}
  
   async logout() {

@@ -14,7 +14,7 @@
                     routerLinkActive="menu-icon-active">
                 <h5 class="main-menu-tab pt-2">Profile Details</h5>
             </a>
-            <a class="main-menu-item item-3" routerLink="/preview" routerLinkActive="menu-item-active">
+            <a class="main-menu-item item-3" [routerLink]="['/preview', userId]" routerLinkActive="menu-item-active">
                     <i class="fa fa-eye main-menu-icon me-1"
                     routerLinkActive="menu-icon-active"></i>
                 <h5 class="main-menu-tab pt-2">Preview</h5>

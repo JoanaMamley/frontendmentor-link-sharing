@@ -39,4 +39,8 @@ export class UserService {
   updateUser(userData: UpdateUserRequest, user_id: number): Observable<User> {
     return this.http.put<User>(`${environment.apiUrl}/user/${user_id}`, userData, {withCredentials: true});
   }
+
+  getUser(userId: number): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/user/${userId}`, {withCredentials: true});
+  }
 }
