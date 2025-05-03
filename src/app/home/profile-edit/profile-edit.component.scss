@@ -6,19 +6,16 @@
 
 .profile-pic-content, .personal-details {
     background: #FAFAFA;
-    padding: 3rem;
+    padding: 1rem;
     width: 100%;
     margin: 0 auto;
 }
 
 .img-content {
-    width: 90%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #EFEBFF;
-    padding: 3rem;
     border-radius: 0.5rem;
 }
 
@@ -41,11 +38,12 @@ img {
 }
 
 .select-img {
-    color: #633CFF;
+    background-color: #633CFF;
     cursor: pointer;
-    text-decoration: underline;
-    text-decoration-color: #633CFF;
+    color: #FAFAFA;
     font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
 }
 
 
@@ -57,6 +55,15 @@ p {
     width: 15%;
     font-size: 20px;
     align-self: flex-end;
+}
+
+.profile-img {
+    width: 30%;
+}
+
+.img-rule {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
 }
 
 @media (max-width: 529px) {

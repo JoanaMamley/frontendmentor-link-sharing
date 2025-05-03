@@ -1,22 +1,18 @@
 <div class="profile-edit-content">
     <h2>Profile Details</h2>
     <p class="mb-4">Add your details to create a personal touch to your profile.</p>
-    <div class="profile-pic-content row mb-3 d-flex align-items-center">
-        <p class="profile-pic-label px-0 col-sm-3">Profile picture</p>
-        <div class="col-sm-9 row">
-            <div class="col-sm-8">
-                <div class="img-content">
-                    <img src="images/icon-upload-image.svg" alt="" class="profile-img">
-                    <label class="select-img mt-3">
-                        <span class="text-center">Select image</span>
-                        <input type="file" accept="image/*" class="d-none" (change)="onFileSelected($event)">
-                    </label>
-                </div>
-            </div>
-            <p class="col-sm-4 align-self-center text-center">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+    <div class="profile-pic-content row mb-3 d-flex">
+        <p class="profile-pic-label px-0 col-sm-3 align-self-center">Profile picture</p>
+        <div class="col-sm-9 img-content">
+            <img src="images/empty_profile_image.png" alt="" class="profile-img">
+            <p class="img-rule">Image must be below 1024x1024px. Use PNG or JPG format.</p>
+            <label class="select-img">
+                <span class="text-center"><i class="pi pi-upload me-2"></i> Select image</span>
+                <input type="file" accept="image/*" class="d-none" (change)="onFileSelected($event)">
+            </label>
         </div>
     </div>
-    <div class="personal-details mb-5">
+    <div class="personal-details mb-3">
         <form class="profile-edit-form" *ngIf="profileForm" [formGroup]="profileForm!">
             <div class="mb-2 row">
                 <label for="inputFirstName" class="col-sm-3 col-form-label" [ngClass]="{'error-label': firstname?.invalid && (firstname?.touched || firstname?.dirty)}">First name*</label>
