@@ -5,11 +5,12 @@ import { Subscription } from 'rxjs';
 import { Link, LinkBasicInfo } from '../../shared/models/link.model';
 import { LinkItemComponent } from './link-item/link-item.component';
 import { LinkService } from '../../shared/services/link.service';
+import { LinksSortPipe } from '../../shared/pipes/links-sort.pipe';
 
 @Component({
   selector: 'app-links',
   standalone: true,
-  imports: [CommonModule, LinkItemComponent],
+  imports: [CommonModule, LinkItemComponent, LinksSortPipe],
   templateUrl: './links.component.html',
   styleUrl: './links.component.scss'
 })
@@ -76,21 +77,30 @@ export class LinksComponent implements OnInit, OnDestroy {
   }
 
   deleteLink($event: number) {
-    const sub = this.linkService.deleteLink($event).subscribe({
-      next: (message) => {
-        this.snackBar.open(message, 'Close', {
-          duration: 2000,
-          panelClass: ['snackbar-success']
-        });
-      },
-      error: (error) => {
-        this.snackBar.open('Failed to delete link', 'Close', {
-          duration: 2000,
-          panelClass: ['snackbar-error']
-        });
-      }
-    });
-    this.subscriptions.push(sub);
+    if ($event === -1) {
+      this.linkService.removeNewLink()
+      this.snackBar.open('Link deleted successfully', 'Close', {
+        duration: 2000,
+        panelClass: ['snackbar-success']
+      });
+    }
+    else {
+      const sub = this.linkService.deleteLink($event).subscribe({
+        next: (message) => {
+          this.snackBar.open(message, 'Close', {
+            duration: 2000,
+            panelClass: ['snackbar-success']
+          });
+        },
+        error: (error) => {
+          this.snackBar.open('Failed to delete link', 'Close', {
+            duration: 2000,
+            panelClass: ['snackbar-error']
+          });
+        }
+      });
+      this.subscriptions.push(sub);
+    }
   }
 
 }

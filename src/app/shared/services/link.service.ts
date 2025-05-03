@@ -35,6 +35,12 @@ export class LinkService {
     this.linksSubject.next(updatedLinks);
   }
 
+  removeNewLink() {
+    const currentLinks = this.linksSubject.getValue();
+    const updatedLinks = currentLinks.filter(link => link.id !== -1)
+    this.linksSubject.next(updatedLinks);
+  }
+
   private addLink(link: LinkBasicInfo): Observable<RawLinkItem> {
     return this.http.post<RawLinkItem>(`${environment.apiUrl}/link`, link, { withCredentials: true });
   }

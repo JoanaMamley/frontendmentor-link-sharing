@@ -44,7 +44,7 @@ export const tokenRefreshInterceptor: HttpInterceptorFn = (req: HttpRequest<unkn
                         switchMap(() => throwError(() => new Error('Session expired'))),
                         catchError(() => {
                             console.log('Error during logout, navigating to login page...');
-                            // router.navigateByUrl('/login');
+                            router.navigateByUrl('/login');
                             return throwError(() => new Error('Session expired and navigation to login page triggered'));
                         })
                     );
