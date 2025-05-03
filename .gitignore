@@ -15,6 +15,9 @@ api/docker-compose.yml
 #  frontend environments
 src/app/shared/environments/environment.ts
 
+# profile images upload folder
+api/uploads
+
 # Node
 /node_modules
 npm-debug.log

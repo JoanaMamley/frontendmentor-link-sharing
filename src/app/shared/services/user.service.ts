@@ -44,18 +44,18 @@ export class UserService {
     return this.http.get<User>(`${environment.apiUrl}/user/${userId}`, {withCredentials: true});
   }
 
-    // Upload profile image
-    uploadProfileImage(file: File): Observable<any> {
-      const formData = new FormData();
-      formData.append('file', file, file.name);
-      return this.http.post(`${environment.apiUrl}/upload-image`, formData, { withCredentials: true });
-    }
+  // Upload profile image
+  uploadProfileImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.http.post(`${environment.apiUrl}/upload-image`, formData, { withCredentials: true });
+  }
 
-    // Get profile image for a user
-    getProfileImage(userId: number): Observable<Blob> {
-      return this.http.get(`${environment.apiUrl}/user/${userId}/image`, {
-        withCredentials: true,
-        responseType: 'blob' // Expect a binary response (image)
-      });
-    }
+  // Get profile image for a user
+  getProfileImage(userId: number): Observable<Blob> {
+    return this.http.get(`${environment.apiUrl}/user/${userId}/image`, {
+      withCredentials: true,
+      responseType: 'blob' // Expect a binary response (image)
+    });
+  }
 }

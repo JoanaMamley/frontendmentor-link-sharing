@@ -38,6 +38,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           'lastname': new FormControl(user.lastname || null, [Validators.required]),
           'email': new FormControl(user.email || null, [Validators.email])
         });
+
+        this.loadProfileImage();
       }
     });
 
@@ -89,7 +91,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       const file = input.files[0];
       this.isUploading = true;
       this.errorMessage = null;
-      this.userService.uploadProfileImage(file).subscribe({
+      const sub = this.userService.uploadProfileImage(file).subscribe({
         next: (response) => {
           this.isUploading = false;
           this.loadProfileImage();
@@ -99,12 +101,14 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           this.errorMessage = 'Upload failed: ' + err.message;
         }
       });
+
+      this.subscriptions.push(sub)
     }
   }
 
   loadProfileImage(): void {
     if (this.user) {
-      this.userService.getProfileImage(this.user.id).subscribe({
+      const sub = this.userService.getProfileImage(this.user.id).subscribe({
         next: (blob) => {
           if (this.profileObjectUrl) {
             URL.revokeObjectURL(this.profileObjectUrl);
@@ -120,6 +124,8 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
           }
         }
       });
+
+      this.subscriptions.push(sub);
     }
   }
 

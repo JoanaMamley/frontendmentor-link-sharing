@@ -35,10 +35,11 @@
 }
 
 .empty-img {
-    background-color: #D9D9D9;
     width: 30%;
-    margin: 1rem auto 0;
-    padding: 4rem;
+    margin: 0.5rem auto;
+    display: flex;
+    justify-content: center;
+    // padding: 4rem;
     border-radius: 50%;
 }
 

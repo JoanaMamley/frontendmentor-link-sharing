@@ -3,7 +3,8 @@
         <div class="innerline">
             <div class="front-camera"></div>
 
-            <div class="empty-img"></div>
+            <!-- <div class="empty-img"></div> -->
+            <img  [src]="profileImageUrl" alt="" class="empty-img">
 
             @if (!user || (!user.firstname && !user.lastname)) {
                  <div class="name empty-name"></div>
