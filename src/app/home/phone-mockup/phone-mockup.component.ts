@@ -27,7 +27,7 @@ export class PhoneMockupComponent implements OnInit, OnDestroy{
     })
 
     const linksSub = this.linkService.links$.subscribe((links) => {
-      this.userLinks = links;
+      this.userLinks = links.filter(link => link.isEditing !== true);
     })
 
     this.subscriptions.push(userSub, linksSub);
