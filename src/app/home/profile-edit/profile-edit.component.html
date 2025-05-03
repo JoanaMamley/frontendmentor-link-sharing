@@ -4,12 +4,17 @@
     <div class="profile-pic-content row mb-3 d-flex">
         <p class="profile-pic-label px-0 col-sm-3 align-self-center">Profile picture</p>
         <div class="col-sm-9 img-content">
-            <img src="images/empty_profile_image.png" alt="" class="profile-img">
+            <img [src]="profileImageUrl" alt="" class="profile-img">
             <p class="img-rule">Image must be below 1024x1024px. Use PNG or JPG format.</p>
             <label class="select-img">
-                <span class="text-center"><i class="pi pi-upload me-2"></i> Select image</span>
+                <span class="text-center">
+                    <i class="pi pi-upload me-2" *ngIf="!isUploading"></i>
+                    <i class="pi pi-spin pi-spinner" *ngIf="isUploading"></i>
+                    Select image
+                </span>
                 <input type="file" accept="image/*" class="d-none" (change)="onFileSelected($event)">
             </label>
+            <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
         </div>
     </div>
     <div class="personal-details mb-3">

@@ -8,6 +8,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile-edit',
@@ -17,14 +18,15 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './profile-edit.component.scss'
 })
 export class ProfileEditComponent implements OnInit, OnDestroy {
-onFileSelected($event: Event) {
-throw new Error('Method not implemented.');
-}
+  profileImageUrl: string | SafeUrl = 'images/empty_profile_image.png';
+  isUploading = false;
+  errorMessage: string | null = null;
+  private profileObjectUrl: string | null = null;
   user?: User;
   subscriptions: Subscription[] = [];
   profileForm?: FormGroup;
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar, private router: Router, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     const sub = this.userService.currentUser$.subscribe(user => {
@@ -43,6 +45,9 @@ throw new Error('Method not implemented.');
   }
 
   ngOnDestroy(): void {
+    if (this.profileObjectUrl) {
+      URL.revokeObjectURL(this.profileObjectUrl);
+    }
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
@@ -75,6 +80,46 @@ throw new Error('Method not implemented.');
       });
 
       this.subscriptions.push(sub);
+    }
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.isUploading = true;
+      this.errorMessage = null;
+      this.userService.uploadProfileImage(file).subscribe({
+        next: (response) => {
+          this.isUploading = false;
+          this.loadProfileImage();
+        },
+        error: (err) => {
+          this.isUploading = false;
+          this.errorMessage = 'Upload failed: ' + err.message;
+        }
+      });
+    }
+  }
+
+  loadProfileImage(): void {
+    if (this.user) {
+      this.userService.getProfileImage(this.user.id).subscribe({
+        next: (blob) => {
+          if (this.profileObjectUrl) {
+            URL.revokeObjectURL(this.profileObjectUrl);
+          }
+          this.profileObjectUrl = URL.createObjectURL(blob);
+          this.profileImageUrl = this.sanitizer.bypassSecurityTrustUrl(this.profileObjectUrl);
+        },
+        error: (err) => {
+          if (err.status === 404) {
+            this.profileImageUrl = 'images/empty_profile_image.png';
+          } else {
+            this.errorMessage = 'Failed to load profile image';
+          }
+        }
+      });
     }
   }
 
