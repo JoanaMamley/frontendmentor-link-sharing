@@ -29,7 +29,7 @@
                     @for (link of links; track link.id) {
                         <a [href]="link.link_url" target="_blank" class="d-flex justify-content-between link-card" [ngClass]="{'frontendmentor': link.link_type === 'frontendMentor'}" [ngStyle]="{'backgroundColor': fetchLinkDetails(link.link_type).color}">
                             <div>
-                                <img [src]="fetchLinkDetails(link.link_type).icon" class="link-type-item-icon me-2"/>
+                                <img [src]="fetchLinkDetails(link.link_type).white_icon" class="link-type-item-icon me-2"/>
                                 <span>{{ fetchLinkDetails(link.link_type).name }}</span>
                             </div>
                             <i class="fa fa-solid fa-arrow-right"></i>
