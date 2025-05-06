@@ -14,6 +14,11 @@ describe('LinkItemComponent', () => {
 
     fixture = TestBed.createComponent(LinkItemComponent);
     component = fixture.componentInstance;
+    component.link = {
+      id: 73,
+      link_type: 'github',
+      link_url: 'https://github.com/test_link_share_user'
+    }
     fixture.detectChanges();
   });
 
