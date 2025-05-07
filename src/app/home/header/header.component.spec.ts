@@ -3,11 +3,15 @@ import { HeaderComponent } from './header.component';
 import { AuthService } from '../../shared/services/auth.service';
 import { provideRouter, Router } from '@angular/router';
 import { routes } from '../../app.routes';
+import { of } from 'rxjs';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
   let authServiceSpy: jasmine.SpyObj<AuthService> = jasmine.createSpyObj<AuthService>('AuthService', ['logout']);
+  authServiceSpy.logout.and.returnValue(of({
+    message: 'logoout successful'
+  }))
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({

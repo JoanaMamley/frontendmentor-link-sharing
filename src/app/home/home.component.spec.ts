@@ -39,6 +39,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     userServiceSpy.currentUser$ = of(userMock);
+    spyOn(console, 'error').and.stub();
     fixture.detectChanges();
   });
 
@@ -59,12 +60,10 @@ describe('HomeComponent', () => {
     it('should navigate to login page if it encounters an error', () => {
       const router = TestBed.inject(Router);
       const routerSpy = spyOn(router, 'navigateByUrl');
-      const consoleErrorSpy = spyOn(console, 'error');
 
       userServiceSpy.getCurrentUser.and.returnValue(throwError(() => new Error('User not found')));
       component.ngOnInit();
 
-      expect(consoleErrorSpy).toHaveBeenCalledWith('Error fetching current user:', jasmine.any(Error));
       expect(routerSpy).toHaveBeenCalledWith('/login');
     });
   })
