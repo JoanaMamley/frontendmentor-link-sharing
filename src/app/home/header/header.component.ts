@@ -13,9 +13,9 @@ import { lastValueFrom } from 'rxjs';
 })
 export class HeaderComponent {
   @Input() userId?: number;
-  
+
   constructor(private authService: AuthService, private router: Router) {}
- 
+
   async logout() {
     await lastValueFrom(this.authService.logout()).catch((error) => {
       console.error('Logout failed:', error);

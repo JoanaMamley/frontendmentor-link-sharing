@@ -1,7 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { AuthService } from '../../shared/services/auth.service';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
+import { routes } from '../../app.routes';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -13,7 +14,7 @@ describe('HeaderComponent', () => {
       imports: [HeaderComponent],
       providers: [
         {provide: AuthService, useValue: authServiceSpy},
-        provideRouter([]),
+        provideRouter(routes),
       ]
     })
     .compileComponents();
@@ -26,4 +27,23 @@ describe('HeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('logout', () => {
+    it('should navigate to login page when logout has been clicked', fakeAsync(() => {
+      const router = TestBed.inject(Router);
+      const routerSpy = spyOn(router, 'navigateByUrl');
+
+      component.logout();
+      tick();
+
+      expect(routerSpy).toHaveBeenCalledWith('/login');
+    }))
+
+    it('should call authAervice to logout', fakeAsync(() => {
+      component.logout();
+      tick();
+
+      expect(authServiceSpy.logout).toHaveBeenCalled();
+    }))
+  })
 });
