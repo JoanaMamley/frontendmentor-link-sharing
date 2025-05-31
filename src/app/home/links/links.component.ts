@@ -18,7 +18,7 @@ export class LinksComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   links: Link[] = [];
 
-  constructor(private linkService: LinkService, private snackBar: MatSnackBar) { }
+  constructor(private linkService: LinkService, public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const sub = this.linkService.links$.subscribe(links => {
