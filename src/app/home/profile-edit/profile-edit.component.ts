@@ -61,7 +61,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
         lastname: this.profileForm?.get('lastname')?.value
       }, this.user.id).subscribe({
         next: (updatedUser) => {
-          console.log('Profile updated successfully:', updatedUser);
+          // console.log('Profile updated successfully:', updatedUser);
           this.userService.setCurrentUser(updatedUser);
           this.snackBar.open('Profile updated successfully', 'Close', {
             duration: 3000,

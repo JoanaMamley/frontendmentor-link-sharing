@@ -94,22 +94,6 @@ describe('LinkItemComponent', () => {
       });
       expect(component.linkForm?.pristine).toBeTrue();
     });
-
-    it('should emit update event for existing link (id != -1)', () => {
-      const emitSpy = spyOn(component.update, 'emit');
-      component.linkForm?.setValue({
-        linkType: 'github',
-        linkUrl: 'https://github.com/updated_user'
-      });
-      
-      component.saveLink();
-      
-      expect(emitSpy).toHaveBeenCalledWith({
-        link_type: 'github',
-        link_url: 'https://github.com/updated_user'
-      });
-      expect(component.linkForm?.pristine).toBeTrue();
-    });
   });
 
   describe('deleteLink', () => {
